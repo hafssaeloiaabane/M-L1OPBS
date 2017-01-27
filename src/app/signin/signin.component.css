@@ -1,0 +1,47 @@
+md-card {
+  width: 90%;
+  margin: 0 auto;
+}
+form {
+    width: 300px;
+    margin: 10px auto;
+}
+
+button {
+  width: 88px; 
+  margin-left: auto;
+}
+
+#forgot {
+  width: 150px;
+}
+
+section {
+  background: #f7f7f7;
+  border-radius: 3px;
+  text-align: center;
+  margin: 1em;
+  position: relative !important;
+  padding-bottom: 10px;
+}
+  md-button, md-raised-button, md-fab {
+    background: #f7f7f7;
+    border-radius: 3px;
+    text-align: center;
+    margin: 1em;
+    position: relative !important;
+    padding-bottom: 10px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+md-content {
+  margin-right: 7px;
+}
+.label {
+  position: absolute;
+  bottom: 5px;
+  left: 7px;
+  font-size: 14px;
+  opacity: 0.54;
+}
