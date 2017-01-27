@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFire, AngularFireModule, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
 // import { select } from 'ng2-redux';
 // import { MyActions } from './../store/actions';
-// import { Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -14,7 +14,7 @@ export class SigninComponent {
   index: number;
   constructor(
       private af: AngularFire
-      // private route: Router,
+      private route: Router,
       // private a: MyActions
     ) { }
 
@@ -28,7 +28,12 @@ export class SigninComponent {
           {provider: AuthProviders.Password, method: AuthMethods.Password}
         ).then((res) => {
             alert('Sign In Successful!');
-            // this.route.navigate(['perm_identity']);
+            if(value.userType === 'admin') {
+                this.route.navigate(['admin']); // navigate to admin panel
+            }
+            else {
+                this.route.navigate(['user']); // navigate to user panel
+            }
         }, (err) => {
             alert(err);
         });

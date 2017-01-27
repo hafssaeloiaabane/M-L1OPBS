@@ -12,6 +12,8 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { SigninComponent } from './signin/signin.component';
 import 'hammerjs';
+import { AdminComponent } from './admin/admin.component';
+import { UserComponent } from './user/user.component';
 
 export const myFirebaseConfig = {
     apiKey: 'AIzaSyDprS0fjxKqaIWjFwYuTNP844rkWxnjt1k',
@@ -26,22 +28,20 @@ export const myFirebaseAuthConfig = {
   method: AuthMethods.Redirect
 };
 
-// const routes: Routes =[
-//   { path: '', pathMatch: 'full', redirectTo: 'home' },
-//   { path: 'home', component: HomeComponent },
-//   { path: 'dashboard', component: UserComponent },
-//   { path: 'card_travel', component: CompanyComponent },
-//   { path: 'perm_identity', component: StudentComponent },
-//   { path: 'account_circle', component: AdminComponent },
-//   { path: 'notifications', component: NotificationsComponent },
-//   { path: '**', redirectTo: 'home'}
-
-// ];
+const routes: Routes =[
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: 'home', component: AppComponent },
+  { path: 'admin', component: AdminComponent },
+  { path: 'user', component: UserComponent },
+  { path: '**', redirectTo: 'home'}
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    SigninComponent
+    SigninComponent,
+    AdminComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +50,7 @@ export const myFirebaseAuthConfig = {
     // StoreModule,
     // NgReduxModule,
     MaterialModule.forRoot(),
-    // RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig)
   ],
   providers: [],
