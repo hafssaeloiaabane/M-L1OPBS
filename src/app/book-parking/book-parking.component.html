@@ -18,19 +18,12 @@
   </button>
 </form>
 <div *ngIf="show">
-  <md-checkbox [checked]="false"
-              [indeterminate]="isIndeterminate"
-              (change)="isIndeterminate = false">
-  </md-checkbox>
-  <md-checkbox [checked]="false"
-              [indeterminate]="isIndeterminate"
-              (change)="isIndeterminate = false">
-  </md-checkbox>
-  <md-checkbox [checked]="false"
-              [indeterminate]="isIndeterminate"
-              (change)="isIndeterminate = false">
-  </md-checkbox>
-  <button type="button" (click)="isIndeterminate = true">
-    Select Slots
+  <md-checkbox></md-checkbox>
+  <md-checkbox></md-checkbox>
+  <md-checkbox></md-checkbox>
+  <md-checkbox></md-checkbox>
+
+  <button type="button">
+    Select Slot
   </button>
 </div>

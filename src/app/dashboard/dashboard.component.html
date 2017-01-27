@@ -1,12 +1,13 @@
 <md-tab-group [selectedIndex]="index">
-  <md-tab label="Book Parking">
-    <app-book-parking (changeTab) = "index=1"></app-book-parking>
+  <md-tab label="Book Parking" *ngIf="isUser">
+    <app-book-parking></app-book-parking>
   </md-tab>
-  <md-tab label="View Bookings">
+  <md-tab label="Bookings List">
     <app-view-bookings></app-view-bookings>
   </md-tab>
   <md-tab label="Feedback">
-    <app-feedback></app-feedback>
+    <app-send-feedback *ngIf="isUser"></app-send-feedback>  
+    <app-feedback-list *ngIf="isAdmin"></app-feedback-list>
   </md-tab>
 </md-tab-group>
   <button md-raised-button color="warn" (click)="signOut()"> Sign Out </button>

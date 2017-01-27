@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-book-parking',
@@ -7,11 +7,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class BookParkingComponent {
   show: boolean = false;
-  @Output() changeTab = new EventEmitter<any>();
-
-  out(event: any) {
-    this.changeTab.emit(event);
-  }
 
   selectSlot() {
 

@@ -6,14 +6,15 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class AdminComponent  {
+export class DashboardComponent  {
 
-  @Input() changeTab;
-  index: number = 0;
+  isUser: boolean;
+  isAdmin: boolean;
+  index: number = 1;
 
   // @select(['UserReducer', 'status'])
   // user$: Observable<any>; // gets User State of the app

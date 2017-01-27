@@ -1,3 +1,44 @@
-<p>
-  view-bookings works!
-</p>
+<div>
+   <!--*ngIf="isCompany || (isAdmin && isChecked)">-->
+  <h3> Bookings List </h3>
+  <table>
+    <thead>
+      <tr>
+        <th> S.No. </th>
+        <th> Slot Id </th>
+        <th> Date </th>
+        <th> Start Time </th>
+        <th> End Time </th>
+        <th> Duration </th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let b of bookings; let i = index">
+        <td> {{i}} </td>
+        <td> {{b.id}} </td>
+        <td> {{b.date}} </td>
+        <td> {{b.start}} </td>
+        <td> {{b.end}} </td>
+        <td> {{b.duration}} </td>
+        <td> 
+          <button md-raised-button color="primary" (click)="cancelBooking(this.b.key)">
+            Cancel Booking
+          </button>
+          <button md-raised-button color="primary" (click)="printReceipt(this.b.key)">
+            Print Receipt
+          </button>
+        </td>
+        <!--<td> 
+          <button md-mini-fab 
+            color="warn" 
+            [ngClass]="{show: isAdmin, hide: !isAdmin}" 
+            (click)="removeStudent(this.b.key)">
+                <i class="material-icons"> delete </i>
+          </button>
+        </td>-->
+      </tr>
+    </tbody>
+  </table>
+</div>
