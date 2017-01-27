@@ -13,12 +13,19 @@ export class SigninComponent {
 
   index: number;
   constructor(
-      private af: AngularFire
+      private af: AngularFire,
       private route: Router,
       // private a: MyActions
     ) { }
 
   onSignIn(value) {
+
+                alert('Sign In Successful!');
+            this.route.navigate(['admin']);
+
+  }
+
+  aslisignin(value) {
     // 'signin' action dispatched from redux
     // this.a.signIn(value.eml);
 
@@ -28,12 +35,13 @@ export class SigninComponent {
           {provider: AuthProviders.Password, method: AuthMethods.Password}
         ).then((res) => {
             alert('Sign In Successful!');
-            if(value.userType === 'admin') {
-                this.route.navigate(['admin']); // navigate to admin panel
-            }
-            else {
-                this.route.navigate(['user']); // navigate to user panel
-            }
+            this.route.navigate(['admin']);
+            // if(value.userType === 'admin') {
+            //     this.route.navigate(['admin']); // navigate to admin panel
+            // }
+            // else {
+            //     this.route.navigate(['user']); // navigate to user panel
+            // }
         }, (err) => {
             alert(err);
         });

@@ -11,9 +11,11 @@ import 'hammerjs';
 // Components
 import { AppComponent } from './app.component';
 import { SigninComponent } from './signin/signin.component';
-import 'hammerjs';
 import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
+import { BookParkingComponent } from './book-parking/book-parking.component';
+import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 export const myFirebaseConfig = {
     apiKey: 'AIzaSyDprS0fjxKqaIWjFwYuTNP844rkWxnjt1k',
@@ -30,7 +32,7 @@ export const myFirebaseAuthConfig = {
 
 const routes: Routes =[
   { path: '', pathMatch: 'full', redirectTo: 'home' },
-  { path: 'home', component: AppComponent },
+  { path: 'home', component: SigninComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'user', component: UserComponent },
   { path: '**', redirectTo: 'home'}
@@ -41,7 +43,10 @@ const routes: Routes =[
     AppComponent,
     SigninComponent,
     AdminComponent,
-    UserComponent
+    UserComponent,
+    BookParkingComponent,
+    ViewBookingsComponent,
+    FeedbackComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,12 @@
-<p>
-  admin works!
-</p>
+<md-tab-group [selectedIndex]="index">
+  <md-tab label="Book Parking">
+    <app-book-parking (changeTab) = "index=1"></app-book-parking>
+  </md-tab>
+  <md-tab label="View Bookings">
+    <app-view-bookings></app-view-bookings>
+  </md-tab>
+  <md-tab label="Feedback">
+    <app-feedback></app-feedback>
+  </md-tab>
+</md-tab-group>
+  <button md-raised-button color="warn" (click)="signOut()"> Sign Out </button>
