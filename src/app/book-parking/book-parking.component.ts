@@ -6,12 +6,15 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./book-parking.component.css']
 })
 export class BookParkingComponent {
-
+  show: boolean = false;
   @Output() changeTab = new EventEmitter<any>();
 
   out(event: any) {
     this.changeTab.emit(event);
   }
 
+  selectSlot() {
+
+  }
 
 }
