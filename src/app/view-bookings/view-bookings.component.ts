@@ -34,7 +34,6 @@ constructor(private af: AngularFire) {
         };
     }
   });
-
 }
 
   // chk for subscription, 2 subscriptions independent hoti hn therefore remove wali is not sync with render wali :( ?

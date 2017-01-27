@@ -37,11 +37,6 @@
             <small [hidden]="!pass.errors?.required || (pass.pristine && !SignInForm._submitted)" class="alert alert-danger">
                 Password is required!
             </small>
-            <br><br>
-            <md-radio-group #userType required> Account Type: 
-                <md-radio-button value="Admin"> Admin </md-radio-button>
-                <md-radio-button value="User"> User </md-radio-button>
-            </md-radio-group>
             <br><br><br>
             <button md-raised-button color="primary" type="submit" [disabled]="!eml.valid || !pass.valid" > 
                 Sign In
