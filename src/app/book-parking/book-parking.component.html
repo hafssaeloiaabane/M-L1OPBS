@@ -25,10 +25,8 @@
       md-raised-button 
       [color]="s.isBooked ? 'accent' : 'primary'" 
       type="button"
-      (click)="slotBooked(s); s.isBooked = true">
-      <!--[disabled]="s.isBooked" >-->
-      <!--name="slotId" #slotId="ngModel" [(ngModel)]="bookedSlotId"-->
-
+      (click)="slotBooked(s); s.isBooked = true"
+      [disabled]="s.isBooked" >
             Slot{{s.id}}
   </button>
   </div>
