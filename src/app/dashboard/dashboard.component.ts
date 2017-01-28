@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-// import {userType} from '../signin/signin.component';
+import { select } from 'ng2-redux';
+import { MyActions } from './../store/actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,17 +11,19 @@ import { Observable } from 'rxjs';
 export class DashboardComponent  {
 
   index: number = 1;
-  // type: string = 'isAdmin';
-  constructor(){
-  //   if(userType === undefined || 'isUser') {
-  //     this.type = 'isUser';
-  //   }
-  //   // else {
-  //   //   this.type = 'isAdmin';
-  //   // }
-  //   // this.type = (userType === undefined || 'isUser')?'isUser':'isAdmin';
-  //   console.log('userType', userType);
-  //       console.log('type', this.type);
+  type: string;
 
+  @select(['UserReducer', 'type'])
+  user$: Observable<any>; // gets User State of the app
+
+  constructor(
+    private a: MyActions
+  ){
+    this.user$.subscribe(x => {
+        console.log('app state: ', x);
+        this.type = (x === 'admin@gmail.com') ? 'isAdmin' : 'isUser';
+        console.log('type: ', this.type);
+    });
   }
+
 }

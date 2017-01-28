@@ -23,18 +23,15 @@ export class SigninComponent {
     // 'signin' action dispatched from redux
     this.a.signIn(value.eml);
 
-    // userType = (value.eml === 'admin@gmail.com') ? 'isAdmin' : 'isUser' ;
-
-    this.af.auth.login(); // Google login
     this.af.auth.login(
                 {email: value.eml, password: value.pass},
                 {provider: AuthProviders.Password, method: AuthMethods.Password}
         ).then((res) => {
                 alert('Sign In Successful!');
                 this.route.navigate(['dashboard']);
-        }, (err) => {
+        }
+        , (err) => {
                 alert(err);
         });
   }
 }
-// export var userType: string;

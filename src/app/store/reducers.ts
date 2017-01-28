@@ -1,6 +1,6 @@
 export const initialUserState = {
     User: {
-        name: 'null',
+        type: 'null',
         status: 'signedout'
     }
 };
@@ -8,11 +8,11 @@ export const initialUserState = {
 export const UserReducer = function(state = initialUserState, action: { type: string, payload?: any}) {
     switch (action.type) {
         case 'SIGN_IN':
-            return Object.assign({}, state, { status: action.payload });
+            return Object.assign({}, state, { type: action.payload });
         case 'SIGN_UP':
-            return Object.assign({}, state, { status: action.payload });
+            return Object.assign({}, state, { type: 'isUser' });
         case 'SIGN_OUT':
-            return Object.assign({}, state, { status: action.payload });
+            return Object.assign({}, state, { type: action.payload });
         default:
             return state;
     }
