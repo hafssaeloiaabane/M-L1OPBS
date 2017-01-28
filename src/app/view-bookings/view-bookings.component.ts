@@ -14,9 +14,10 @@ export class ViewBookingsComponent {
     id: string,
     date: string,
     start: number,
+    end: string,
     duration: number,
     key: string
-  }] = [{id: 'booking1', date: '1Jan2017', start: 6, duration: 2, key: '0'}];
+  }] = [{id: 'booking1', date: '1Jan2017', start: 6, end: '9AM', duration: 2, key: '0'}];
 
 constructor(private af: AngularFire) {
   this.item = this.af.database.list('/bookings');
@@ -24,9 +25,10 @@ constructor(private af: AngularFire) {
     (x) => {
       for (let i = 0; i < x.length; i++) {
         this.bookings[i] = {
-          id: x[i].id,
+          id: x[i].slotId,
           date: x[i].date,
           start: x[i].start,
+          end: parseInt(x[i].start) + parseInt(x[i].duration) + 'AM',
           duration: x[i].duration,
           key: x[i].$key,
         };
