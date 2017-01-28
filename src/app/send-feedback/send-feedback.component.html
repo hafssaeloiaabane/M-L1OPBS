@@ -3,10 +3,23 @@
         <h3> Feedback </h3>
     </md-card-title>
     <md-card-content>
-      <form #feedbackForm (ngSubmit)="SendFeedback(feedbackForm.value)">
-        <md-input dividerColor='primary' placeholder='Your Name'></md-input>
+      <form #feedbackForm="ngForm" (ngSubmit)="SendFeedback(feedbackForm.value)">
+        <md-input 
+            dividerColor='primary'
+            placeholder='Your Name'
+            name="uname"
+            type="text"
+            #uname="ngModel"
+            [(ngModel)]="username">
+        </md-input>
         <br>
-        <textarea class='textarea' placeholder='Your Feedback' rows="7" cols="35"></textarea>
+        <md-input 
+            dividerColor='primary'
+            placeholder='Your Feedback'
+            name="msg"
+            type="text"
+            #msg="ngModel"
+            [(ngModel)]="message"></md-input>
         <br>
         <button type='submit' md-mini-fab color='primary'>
           <i class="material-icons">send</i>

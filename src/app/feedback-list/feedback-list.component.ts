@@ -23,8 +23,8 @@ constructor(private af: AngularFire) {
     (x) => {
       for (let i = 0; i < x.length; i++) {
         this.feedbacks[i] = {
-          uname: x[i].name,
-          msg: x[i].message,
+          uname: x[i].uname,
+          msg: x[i].msg,
           key: x[i].$key
         };
       }
