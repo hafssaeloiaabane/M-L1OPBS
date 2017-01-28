@@ -3,7 +3,7 @@
         <h3> Feedback </h3>
     </md-card-title>
     <md-card-content>
-      <form #notificationForm (ngSubmit)="AddNotice(notice.value)">
+      <form #feedbackForm (ngSubmit)="SendFeedback(feedbackForm.value)">
         <md-input dividerColor='primary' placeholder='Your Name'></md-input>
         <br>
         <textarea class='textarea' placeholder='Your Feedback' rows="7" cols="35"></textarea>

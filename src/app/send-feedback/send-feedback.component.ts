@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
   selector: 'app-send-feedback',
   templateUrl: './send-feedback.component.html',
   styleUrls: ['./send-feedback.component.css']
 })
-export class SendFeedbackComponent implements OnInit {
+export class SendFeedbackComponent {
 
-  constructor() { }
+feedback: FirebaseListObservable<any> ;
 
-  ngOnInit() {
+constructor(private af: AngularFire) {}
+
+  SendFeedback(formValue) {
+    this.af.database.list('/feedbacks')
+    .push(formValue)
+    .then(() => console.log('success'))
+    .catch(err => console.log('error: ', err)); // formvalue is pushed into the db
+    // console.log(formValue);
+    alert('Feedback Submitted!');
   }
 
 }

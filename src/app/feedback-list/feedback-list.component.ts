@@ -18,7 +18,6 @@ export class FeedbackListComponent {
   }] = [{uname: 'Test1', msg: 'first feedback', key: '0'}];
 
 constructor(private af: AngularFire) {
-
   this.item = this.af.database.list('/feedbacks');
   this.item.subscribe(
     (x) => {
