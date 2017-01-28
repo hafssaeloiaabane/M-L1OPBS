@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import {userType} from '../signin/signin.component';
+// import {userType} from '../signin/signin.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,8 +10,17 @@ import {userType} from '../signin/signin.component';
 export class DashboardComponent  {
 
   index: number = 1;
-  type = userType;
+  // type: string = 'isAdmin';
   constructor(){
-    console.log('userType', userType);
+  //   if(userType === undefined || 'isUser') {
+  //     this.type = 'isUser';
+  //   }
+  //   // else {
+  //   //   this.type = 'isAdmin';
+  //   // }
+  //   // this.type = (userType === undefined || 'isUser')?'isUser':'isAdmin';
+  //   console.log('userType', userType);
+  //       console.log('type', this.type);
+
   }
 }

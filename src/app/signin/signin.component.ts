@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFire, AngularFireModule, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
-// import { select } from 'ng2-redux';
-// import { MyActions } from './../store/actions';
+import { select } from 'ng2-redux';
+import { MyActions } from './../store/actions';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,25 +16,25 @@ export class SigninComponent {
   constructor(
       private af: AngularFire,
       private route: Router,
-      // private a: MyActions
+      private a: MyActions
     ) { }
 
   onSignIn(value) {
     // 'signin' action dispatched from redux
-    // this.a.signIn(value.eml);
+    this.a.signIn(value.eml);
 
-    userType = (value.eml === 'admin@gmail.com') ? 'isAdmin' : 'isUser' ;
+    // userType = (value.eml === 'admin@gmail.com') ? 'isAdmin' : 'isUser' ;
 
-    // this.af.auth.login(); // Google login
-    // this.af.auth.login(
-    //             {email: value.eml, password: value.pass},
-    //             {provider: AuthProviders.Password, method: AuthMethods.Password}
-    //     ).then((res) => {
+    this.af.auth.login(); // Google login
+    this.af.auth.login(
+                {email: value.eml, password: value.pass},
+                {provider: AuthProviders.Password, method: AuthMethods.Password}
+        ).then((res) => {
                 alert('Sign In Successful!');
                 this.route.navigate(['dashboard']);
-        // }, (err) => {
-        //         alert(err);
-        // });
+        }, (err) => {
+                alert(err);
+        });
   }
 }
-export var userType: string;
+// export var userType: string;

@@ -3,14 +3,17 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
+import { StoreModule } from './store';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
-// import { NgReduxModule } from 'ng2-redux';
+import { NgReduxModule } from 'ng2-redux';
 import 'hammerjs';
 
 // Components
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
 import { SigninComponent } from './signin/signin.component';
+import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BookParkingComponent } from './book-parking/book-parking.component';
 import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
@@ -32,7 +35,7 @@ export const myFirebaseAuthConfig = {
 
 const routes: Routes =[
   { path: '', pathMatch: 'full', redirectTo: 'home' },
-  { path: 'home', component: SigninComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: '**', redirectTo: 'home'}
 ];
@@ -40,6 +43,8 @@ const routes: Routes =[
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
+    SignupComponent,
     SigninComponent,
     DashboardComponent,
     BookParkingComponent,
@@ -51,8 +56,8 @@ const routes: Routes =[
     BrowserModule,
     FormsModule,
     HttpModule,
-    // StoreModule,
-    // NgReduxModule,
+    StoreModule,
+    NgReduxModule,
     MaterialModule.forRoot(),
     RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig)

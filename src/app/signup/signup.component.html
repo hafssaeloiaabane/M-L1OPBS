@@ -1,0 +1,64 @@
+  <md-card>
+    <md-card-title>
+        <h2>User Registration</h2>
+    </md-card-title>
+    <md-card-content>
+        <form novalidate #SignUpForm="ngForm" (ngSubmit)='SignUp(SignUpForm.value)'>
+            <md-input required
+                [dividerColor]=" (!uname.valid || uname.pristine) ? 'warn':'primary' " 
+                placeholder="Name" 
+                align="start" 
+                name="uname"
+                type="text"
+                #uname="ngModel"
+                [(ngModel)]="username"
+                pattern="[a-z]+ [a-z]{3,12}">
+            </md-input>
+            <small [hidden]="uname.valid || (uname.pristine && !SignUpForm._submitted)" class="alert alert-danger">
+                Invalid Name! 
+            </small>
+			<small [hidden]="!uname.errors?.required || (uname.pristine && !SignUpForm._submitted)" class="alert alert-danger">
+                Name is required!
+            </small>
+                <br>
+            <md-input required
+                [dividerColor]=" (!emlid.valid || emlid.pristine) ? 'warn':'primary' " 
+                placeholder="Email" 
+                align="start" 
+                name="emlid"
+                type="email"
+                #emlid="ngModel"
+                [(ngModel)]="emailUp"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+            </md-input>
+            <small [hidden]="emlid.valid || (emlid.pristine && !SignUpForm._submitted)" class="alert alert-danger">
+                Invalid Email! 
+            </small>
+			<small [hidden]="!emlid.errors?.required || (emlid.pristine && !SignUpForm._submitted)" class="alert alert-danger">
+                Email is required!
+            </small>
+                <br>
+            <md-input required
+                [dividerColor]="(!pcode.valid || pcode.pristine) ? 'warn':'primary'" 
+                placeholder="Password" 
+                align="start" 
+                name="pcode"
+                type="password" 
+                #pcode="ngModel"
+                [(ngModel)]="passwordUp"
+                minlength="6">
+            </md-input>
+            <small [hidden]="pcode.valid || (pcode.pristine && !SignUpForm._submitted)" class="alert alert-danger">
+                Password must be 6 characters long!
+            </small>
+            <small [hidden]="!pcode.errors?.required || (pcode.pristine && !SignUpForm._submitted)" class="alert alert-danger">
+                Password is required!
+            </small>
+                <br><br>
+            <button md-raised-button color="primary" type="submit" [disabled]="!emlid.valid || !pcode.valid"> 
+                Sign Up
+            </button>
+            <br>
+        </form>
+    </md-card-content>
+  </md-card>
