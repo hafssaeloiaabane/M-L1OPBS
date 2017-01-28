@@ -12,7 +12,7 @@ import { MyActions } from './store/actions';
 })
 export class AppComponent {
 
-  type: boolean = false;
+  isSignedOut: boolean;
 
   @select(['UserReducer', 'type'])
   user$: Observable<any>; // gets User State of the app
@@ -25,15 +25,13 @@ export class AppComponent {
   ){
     this.user$.subscribe(x => {
         console.log('app state: ', x);
-        // console.log('type: ', this.type);
+        this.isSignedOut = (x === 'signedout') ? true : false;
     });
   }
 
   signOut() {
     // 'signout' action dispatched from redux
     this.a.signOut();
-    this.type = true;
-
     this.af.auth.logout();
     this.r.navigate(['home']); // navigate back to home page
     alert('Please Sign In to continue...');
