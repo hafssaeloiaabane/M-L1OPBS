@@ -20,9 +20,9 @@ export class DashboardComponent  {
     private a: MyActions
   ){
     this.user$.subscribe(x => {
-        console.log('app state: ', x);
+        // console.log('app state: ', x);
         this.type = (x === 'admin@gmail.com') ? 'isAdmin' : 'isUser';
-        console.log('type: ', this.type);
+        // console.log('type: ', this.type);
     });
   }
 

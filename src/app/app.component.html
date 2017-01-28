@@ -1,8 +1,7 @@
-  <!--<header class="header">
-    <h1 class="header__title">Online Parking Booking System</h1>-->
-    <button md-raised-button color="warn" class="headerButton" (click)="signOut()"> Sign Out </button>
-     <!--agr signin hai to-->
-  <!--</header>-->
-  <div class="layout">
+  <header class="header">
+    <h1 class="header__title">Online Parking Booking System</h1>
+    <button md-raised-button color="warn" class="headerButton" (click)="signOut()" *ngIf="type"> Sign Out </button>
+  </header>
+  <main class="main">
     <router-outlet></router-outlet>
-  </div>
+  </main>
