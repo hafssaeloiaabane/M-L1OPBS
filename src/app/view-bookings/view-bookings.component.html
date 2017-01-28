@@ -23,21 +23,13 @@
         <td> {{b.end}} </td>
         <td> {{b.duration}} </td>
         <td> 
-          <button md-raised-button color="primary" (click)="cancelBooking(this.b.key)">
-            Cancel Booking
+          <button md-mini-fab color="warn" (click)="cancelBooking(this.b.key)">
+              <i class="material-icons">delete</i>
           </button>
-          <button md-raised-button color="primary" (click)="printReceipt(this.b.key)">
-            Print Receipt
+          <button md-mini-fab color="primary" (click)="printReceipt(this.b.key)">
+              <i class="material-icons">print</i>
           </button>
         </td>
-        <!--<td> 
-          <button md-mini-fab 
-            color="warn" 
-            [ngClass]="{show: isAdmin, hide: !isAdmin}" 
-            (click)="removeStudent(this.b.key)">
-                <i class="material-icons"> delete </i>
-          </button>
-        </td>-->
       </tr>
     </tbody>
   </table>
