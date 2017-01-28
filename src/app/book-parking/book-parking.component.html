@@ -1,14 +1,17 @@
 <h3> Book Parking Slots </h3>
-<form>
-  <input type="date">
-  <select>
+<form #bookingsForm="ngForm" (ngSubmit)="BookParkings(bookingsForm.value)">
+  <input type="date"
+        name="date"
+        #date="ngModel"
+        [(ngModel)]="pickDate">
+  <select name="start" #start="ngModel" [(ngModel)]="startTime">
     <option value="6AM"> 6 AM </option>
     <option value="7AM"> 7 AM </option>
     <option value="8AM"> 8 AM </option>
     <option value="9AM"> 9 AM </option>
   </select>
-  <select> 
-    <option value="1"> 1 hours </option>
+  <select name="duration" #duration="ngModel" [(ngModel)]="timeDuration"> 
+    <option value="1"> 1 hour </option>
     <option value="2"> 2 hours </option>
     <option value="3"> 3 hours </option>
     <option value="4"> 4 hours </option>
@@ -16,14 +19,22 @@
   <button type="button" md-raised-button color="primary" (click)="show = true">
     View Slots
   </button>
-</form>
-<div *ngIf="show">
-  <md-checkbox></md-checkbox>
-  <md-checkbox></md-checkbox>
-  <md-checkbox></md-checkbox>
-  <md-checkbox></md-checkbox>
 
-  <button type="button">
-    Select Slot
+<div *ngIf="show">
+  <button *ngFor="let s of slots; let i = index"
+      md-raised-button 
+      [color]="s.isBooked ? 'accent' : 'primary'" 
+      type="button"
+      (click)="slotBooked(s); s.isBooked = true">
+      <!--[disabled]="s.isBooked" >-->
+      <!--name="slotId" #slotId="ngModel" [(ngModel)]="bookedSlotId"-->
+
+            Slot{{s.id}}
   </button>
-</div>
+  </div>
+  <button md-raised-button color="warn" type="submit">
+    Submit Selection
+  </button>
+
+
+</form>

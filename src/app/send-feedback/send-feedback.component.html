@@ -13,13 +13,16 @@
             [(ngModel)]="username">
         </md-input>
         <br>
-        <md-input 
-            dividerColor='primary'
-            placeholder='Your Feedback'
+        <textarea
             name="msg"
-            type="text"
+            [(ngModel)]="message"
             #msg="ngModel"
-            [(ngModel)]="message"></md-input>
+            placeholder='Your Feedback'
+            dividerColor='primary'
+            rows="8"
+            cols="25">
+        </textarea>
+        <br>
         <br>
         <button type='submit' md-mini-fab color='primary'>
           <i class="material-icons">send</i>
