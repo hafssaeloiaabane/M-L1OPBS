@@ -22,7 +22,7 @@
         <td> {{b.end}} </td>
         <td> {{b.duration}} </td>
         <td> 
-          <button md-mini-fab color="warn" (click)="cancelBooking(this.b.key)">
+          <button md-mini-fab color="warn" (click)="cancelBooking(this.b.key, this.b)">
               <i class="material-icons">delete</i>
           </button>
           <button md-mini-fab color="primary" (click)="printReceipt(this.b.key)">

@@ -15,7 +15,9 @@ export class ViewBookingsComponent {
 
   @select(['UserReducer', 'type'])
   user$: Observable<any>; // gets User State of the app
+
   key;
+
   bookings: [{
     id: string,
     date: string,
@@ -26,12 +28,9 @@ export class ViewBookingsComponent {
   }] = [{id: 'booking1', date: '1Jan2017', start: 6, end: '9AM', duration: 2, key: '0'}];
 
 constructor(private af: AngularFire) {
-          console.log('app state: ', this.user$);
   this.user$.subscribe(x => {
-      // if( x !== 'signedout') {
          this.key = x.slice(0, x.indexOf('@')); // extracts username from email
-        console.log('app state: ', this.key);
-      // }
+        // console.log('app state: ', this.key);
   });
             this.item = this.af.database.list('/bookings/' + this.key);
             this.item.subscribe((x) => {
@@ -47,11 +46,10 @@ constructor(private af: AngularFire) {
               }
             });
 }
-  // chk for subscription, 2 subscriptions independent hoti hn therefore remove wali is not sync with render wali :( ?
-  // todoapp se check how to dlt data ?
 
-  cancelBooking(key) { // db key is received as 'key'
+  cancelBooking(key, index) { // db key is received as 'key'
     this.item.subscribe( x => this.item.remove(key) ); // node specified by the key is deleted from the db
+    this.bookings.splice(index, 1); // removed from the array
     alert('Success! You cancelled the booking.');
   }
 
