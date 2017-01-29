@@ -1,6 +1,5 @@
 <div>
   <h3> Bookings List </h3>
-  <!--<div *ngIf="isAdmin">-->
   <table>
     <thead>
       <tr>
@@ -35,40 +34,4 @@
       </tr>
     </tbody>
   </table>
-  <!--</div>-->
-<!--<div *ngIf="!isAdmin">
-  <table>
-    <thead>
-      <tr>
-        <th> S.No. </th>
-        <th> User Name </th>
-        <th> Slot Id </th>
-        <th> Date </th>
-        <th> Start Time </th>
-        <th> End Time </th>
-        <th> Duration </th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let u of users; let i = index">
-        <td> {{i}} </td>
-        <td> {{u.name}} </td>
-        <td> {{u.bookings.id}} </td>
-        <td> {{u.bookings.date}} </td>
-        <td> {{u.bookings.start}} </td>
-        <td> {{u.bookings.end}} </td>
-        <td> {{u.bookings.duration}} </td>
-        <td> 
-          <button md-mini-fab color="warn" (click)="cancelBooking(this.u.key, this.u)">
-              <i class="material-icons">delete</i>
-          </button>
-          <button md-mini-fab color="primary" (click)="printReceipt(this.u.key)">
-              <i class="material-icons">print</i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>-->
 </div>

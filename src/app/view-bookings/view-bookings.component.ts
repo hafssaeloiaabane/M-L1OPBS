@@ -9,19 +9,19 @@ import { MyActions } from '../store/actions';
   styleUrls: ['./view-bookings.component.css']
 })
 export class ViewBookingsComponent {
-  // @Input() type: string;
 
   key;
   isAdmin: boolean;
 
   item: FirebaseListObservable<any>;
   userName: FirebaseListObservable<any>;
-  
+
   @select(['UserReducer', 'type'])
   user$: Observable<any>; // gets User State of the app
 
   bookings: [{
     id: string,
+    user: string,
     date: string,
     start: number,
     end: string,
@@ -29,34 +29,13 @@ export class ViewBookingsComponent {
     key: string
   }] = [{
     id: 'set',
+    user: 'set',
     date: 'set',
     start: 0,
     end: '0',
     duration: 0,
     key: 'set'
   }];
-
-  users: string[] = [];
-  adminView = {
-    concatenateArray : [this.bookings , this.users]
-  }
-  // adminView: [{
-  //   id: string,
-  //   date: string,
-  //   start: number,
-  //   end: string,
-  //   duration: number,
-  //   key: string,
-  //   user: string
-  // }] = [{
-  //     id : this.bookings[i].id;
-  //     date : this.bookings[i].date;
-  //     start : this.bookings[i].start;
-  //     end : this.bookings[i].end;
-  //     duration : this.bookings[i].duration;
-  //     key : this.bookings[i].key;
-  //     user : this.users[i];
-  // }]
 
 constructor(private af: AngularFire) {
     this.user$.subscribe((x) => {
@@ -66,21 +45,20 @@ constructor(private af: AngularFire) {
     });
 
   console.log('isAdmin', this.isAdmin);
-  console.log('adminview obj', this.adminView.concatenateArray[0]);
 
     if (this.isAdmin) {
       this.userName = this.af.database.list('/bookings');
       this.userName.subscribe((x) => {
         let temp = [];
               for (let i = 0; i < x.length; i++) {
-                  this.users[i] = x[i];
-                  console.log('x: ' , this.users[i]); // assigned
-                  for(var k in x[i]) {
+                  // this.bookings[i].user = x[i];
+                for(var k in x[i]) {
                     if(k === '$key') {
                       continue;
                     }
                     temp.push({
                       id: x[i][k].slotId,
+                      user: x[i].$key,
                       date: x[i][k].date,
                       start: x[i][k].start,
                       end: parseInt(x[i][k].start) + parseInt(x[i][k].duration) + 'AM',
@@ -92,13 +70,14 @@ constructor(private af: AngularFire) {
               this.bookings = <any>temp;
       });
     }
-console.log('users is array', this.users[0]); // ni milra
 
+    if(!this.isAdmin) {
             this.item = this.af.database.list('/bookings/' + this.key);
             this.item.subscribe((x) => {
                 for (let i = 0; i < x.length; i++) {
                   this.bookings[i] = {
                     id: x[i].slotId,
+                    user: 'self',
                     date: x[i].date,
                     start: x[i].start,
                     end: parseInt(x[i].start) + parseInt(x[i].duration) + 'AM',
@@ -108,6 +87,7 @@ console.log('users is array', this.users[0]); // ni milra
                   console.log('bookings', this.bookings[i]);
               }
             });
+    }
  }
 
   cancelBooking(key, index) { // db key is received as 'key'
