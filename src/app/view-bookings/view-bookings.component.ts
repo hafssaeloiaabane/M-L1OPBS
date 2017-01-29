@@ -52,7 +52,7 @@ constructor(private af: AngularFire) {
         let temp = [];
               for (let i = 0; i < x.length; i++) {
                   // this.bookings[i].user = x[i];
-                for(var k in x[i]) {
+                for(let k in x[i]) {
                     if(k === '$key') {
                       continue;
                     }

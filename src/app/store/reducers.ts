@@ -1,6 +1,6 @@
 export const initialUserState = {
     User: {
-        type: 'null',
+        type: 'signedout',
         status: 'signedout'
     }
 };
