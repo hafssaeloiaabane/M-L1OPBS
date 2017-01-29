@@ -51,20 +51,24 @@ constructor(private af: AngularFire) {
       this.userName.subscribe((x) => {
         let temp = [];
               for (let i = 0; i < x.length; i++) {
+                console.log('users node',x[i]);
                   // this.bookings[i].user = x[i];
                 for(let k in x[i]) {
                     if(k === '$key') {
                       continue;
                     }
-                    temp.push({
-                      id: x[i][k].slotId,
-                      user: x[i].$key,
-                      date: x[i][k].date,
-                      start: x[i][k].start,
-                      end: parseInt(x[i][k].start) + parseInt(x[i][k].duration) + 'AM',
-                      duration: x[i][k].duration,
-                      key: x[i][k].$key
-                    });
+                    console.log('booking data:', x[i][k]);
+                    if(typeof x[i][k] != "function"){
+                        temp.push({
+                          id: x[i][k].slotId,
+                          user: x[i].$key,
+                          date: x[i][k].date,
+                          start: x[i][k].start,
+                          end: parseInt(x[i][k].start) + parseInt(x[i][k].duration) + 'AM',
+                          duration: x[i][k].duration,
+                          key: x[i][k].$key
+                        });
+                    }
                   }
               }
               this.bookings = <any>temp;
@@ -91,6 +95,7 @@ constructor(private af: AngularFire) {
  }
 
   cancelBooking(key, index) { // db key is received as 'key'
+    this.item = this.af.database.list('/bookings/' + this.key);
     this.item.subscribe( x => this.item.remove(key) ); // node specified by the key is deleted from the db
     this.bookings.splice(index, 1); // removed from the array
     alert('Success! You cancelled the booking.');
