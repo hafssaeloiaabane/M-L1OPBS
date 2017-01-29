@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Observable } from 'rxjs';
+import { select } from 'ng2-redux';
+import { MyActions } from '../store/actions';
 
 @Component({
   selector: 'app-view-bookings',
@@ -10,6 +13,9 @@ export class ViewBookingsComponent {
 
   item: FirebaseListObservable<any> ;
 
+  @select(['UserReducer', 'type'])
+  user$: Observable<any>; // gets User State of the app
+  key;
   bookings: [{
     id: string,
     date: string,
@@ -20,22 +26,27 @@ export class ViewBookingsComponent {
   }] = [{id: 'booking1', date: '1Jan2017', start: 6, end: '9AM', duration: 2, key: '0'}];
 
 constructor(private af: AngularFire) {
-  this.item = this.af.database.list('/bookings');
-  this.item.subscribe(
-    (x) => {
-      for (let i = 0; i < x.length; i++) {
-        this.bookings[i] = {
-          id: x[i].slotId,
-          date: x[i].date,
-          start: x[i].start,
-          end: parseInt(x[i].start) + parseInt(x[i].duration) + 'AM',
-          duration: x[i].duration,
-          key: x[i].$key,
-        };
-    }
+          console.log('app state: ', this.user$);
+  this.user$.subscribe(x => {
+      // if( x !== 'signedout') {
+         this.key = x.slice(0, x.indexOf('@')); // extracts username from email
+        console.log('app state: ', this.key);
+      // }
   });
+            this.item = this.af.database.list('/bookings/' + this.key);
+            this.item.subscribe((x) => {
+                for (let i = 0; i < x.length; i++) {
+                  this.bookings[i] = {
+                    id: x[i].slotId,
+                    date: x[i].date,
+                    start: x[i].start,
+                    end: parseInt(x[i].start) + parseInt(x[i].duration) + 'AM',
+                    duration: x[i].duration,
+                    key: x[i].$key,
+                  };
+              }
+            });
 }
-
   // chk for subscription, 2 subscriptions independent hoti hn therefore remove wali is not sync with render wali :( ?
   // todoapp se check how to dlt data ?
 

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Observable } from 'rxjs';
+import { select } from 'ng2-redux';
+import { MyActions } from '../store/actions';
 
 @Component({
   selector: 'app-book-parking',
@@ -7,8 +10,10 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
   styleUrls: ['./book-parking.component.css']
 })
 export class BookParkingComponent {
+
   bookedSlotId: number;
   show: boolean = false;
+
   slots  = [
     { id: 0, isBooked: false },
     { id: 1, isBooked: false },
@@ -26,16 +31,30 @@ export class BookParkingComponent {
   ];
 
   bookings: FirebaseListObservable<any> ;
-  constructor(private af: AngularFire) {}
+
+  @select(['UserReducer', 'type'])
+  user$: Observable<any>; // gets User State of the app
+
+  constructor(
+    private af: AngularFire,
+    private a: MyActions
+  ){}
 
   BookParkings(formVal) {
-    formVal.slotId = this.bookedSlotId; // inserts slotid to object 
-    this.af.database.list('/bookings').push(formVal); // formvalue is pushed into the db
-    alert('Parking Slot Booked!');
+    formVal.slotId = this.bookedSlotId; // inserts slotid to object
+
+    this.user$.subscribe(x => {
+      if( x !== 'signedout') {
+        let slice = x.slice(0, x.indexOf('@')); // extracts username from email
+        // console.log('app state: ', slice);
+        this.af.database.list('/bookings/' + slice) // creates a new node for each user
+        .push(formVal); // pushes formVal on new node each time
+        alert('Parking Slot Booked!');
+      }
+    });
   }
 
   slotBooked(slotId) {
-    console.log(slotId.id);
     this.bookedSlotId = slotId.id;
   }
 }
