@@ -25,8 +25,8 @@
 </div>
 <br><br>
 <div *ngIf="clicked">
-    <md-input dividerColor='primary' placeholder='Your Reply'></md-input>
-    <button type='submit' md-mini-fab color='primary' (click)="reply()">
+    <md-input dividerColor='primary' placeholder='Your Reply' #rpl></md-input>
+    <button type='submit' md-mini-fab color='primary' (click)="reply(rpl.value, this.)">
       <i class="material-icons">send</i>
     </button>
 </div>

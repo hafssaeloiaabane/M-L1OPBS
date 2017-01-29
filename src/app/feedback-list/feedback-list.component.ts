@@ -29,7 +29,7 @@ constructor(private af: AngularFire) {
         this.key = x.slice(0, x.indexOf('@')); // extracts username from email
         console.log('app state: ', this.key);
   });
-            this.item = this.af.database.list('/bookings/' + this.key);
+            this.item = this.af.database.list('/feedbacks');
             this.item.subscribe((x) => {
                 for (let i = 0; i < x.length; i++) {
                   this.feedbacks[i] = {
@@ -41,7 +41,7 @@ constructor(private af: AngularFire) {
             });
 }
 
-  reply() {
-    alert('Success, Admin replied!');
+  reply(val) {
+    alert('Success, Admin replied: ' + val);
   }
 }
