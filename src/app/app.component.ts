@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Routes } from '@angular/router';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs';
 import { select } from 'ng2-redux';
@@ -24,8 +24,9 @@ export class AppComponent {
     private a: MyActions
   ){
     this.user$.subscribe(x => {
-        console.log('app state: ', x);
-        this.isSignedOut = (x === 'signedout') ? true : false;
+        // console.log('app state: ', x);
+        this.isSignedOut = (x === 'signedout' || x === undefined) ? true : false;
+        // console.log('isSignedOut: ', this.isSignedOut)
     });
   }
 
