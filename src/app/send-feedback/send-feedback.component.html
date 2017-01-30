@@ -1,10 +1,12 @@
-  <md-card>
-    <md-card-title> 
-        <h3> Feedback </h3>
-    </md-card-title>
-    <md-card-content>
+<app-feedback-list></app-feedback-list>
+<div>
+<!--<md-card>
+    <md-card-title> -->
+        <h3> Send Feedback </h3>
+    <!--</md-card-title>
+    <md-card-content>-->
       <form #feedbackForm="ngForm" (ngSubmit)="SendFeedback(feedbackForm.value)">
-        <md-input 
+        <!--<md-input 
             dividerColor='primary'
             placeholder='Your Name'
             name="uname"
@@ -12,8 +14,8 @@
             #uname="ngModel"
             [(ngModel)]="username">
         </md-input>
-        <br>
-        <textarea
+        <br>-->
+        <md-input
             name="msg"
             [(ngModel)]="message"
             #msg="ngModel"
@@ -21,12 +23,32 @@
             dividerColor='primary'
             rows="8"
             cols="25">
-        </textarea>
-        <br>
-        <br>
+        </md-input>
+        <!--<br>
+        <br>-->
         <button type='submit' md-mini-fab color='primary'>
           <i class="material-icons">send</i>
         </button>
       </form>
-    </md-card-content>
-  </md-card>
+    <!--</md-card-content>
+</md-card>-->
+</div>
+<!--<div>
+  <h3> Feedback Response </h3>
+  <table>
+    <thead>
+      <tr>
+        <th> S.No. </th>
+        <th> Feedback </th>
+        <th> Response </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let f of feedbacks; let i = index">
+        <td> {{i}} </td>
+        <td> {{f.msg}} </td>
+        <td> {{f.reply}} </td>
+      </tr>
+    </tbody>
+  </table>
+</div>-->

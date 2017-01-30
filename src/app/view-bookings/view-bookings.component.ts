@@ -40,24 +40,23 @@ export class ViewBookingsComponent {
 constructor(private af: AngularFire) {
     this.user$.subscribe((x) => {
          this.key = x.slice(0, x.indexOf('@')); // extracts username from email
-         console.log('this.key: ', this.key);
+        //  console.log('this.key: ', this.key);
          this.isAdmin = (this.key === 'admin') ? true : false;
     });
 
-  console.log('isAdmin', this.isAdmin);
+  // console.log('isAdmin', this.isAdmin);
 
     if (this.isAdmin) {
       this.userName = this.af.database.list('/bookings');
       this.userName.subscribe((x) => {
         let temp = [];
               for (let i = 0; i < x.length; i++) {
-                console.log('users node',x[i]);
-                  // this.bookings[i].user = x[i];
+                // console.log('users node',x[i]);
                 for(let k in x[i]) {
                     if(k === '$key') {
                       continue;
                     }
-                    console.log('booking data:', x[i][k]);
+                    // console.log('booking data:', x[i][k]);
                     if(typeof x[i][k] != "function"){
                         temp.push({
                           id: x[i][k].slotId,
@@ -88,7 +87,7 @@ constructor(private af: AngularFire) {
                     duration: x[i].duration,
                     key: x[i].$key
                   };
-                  console.log('bookings', this.bookings[i]);
+                  // console.log('bookings', this.bookings[i]);
               }
             });
     }

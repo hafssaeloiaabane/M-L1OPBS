@@ -19,6 +19,7 @@ import { BookParkingComponent } from './book-parking/book-parking.component';
 import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
 import { SendFeedbackComponent } from './send-feedback/send-feedback.component';
 import { FeedbackListComponent } from './feedback-list/feedback-list.component';
+import { FeebacksComponent } from './feebacks/feebacks.component';
 
 export const myFirebaseConfig = {
     apiKey: 'AIzaSyDprS0fjxKqaIWjFwYuTNP844rkWxnjt1k',
@@ -50,7 +51,8 @@ const routes: Routes =[
     BookParkingComponent,
     ViewBookingsComponent,
     SendFeedbackComponent,
-    FeedbackListComponent
+    FeedbackListComponent,
+    FeebacksComponent
   ],
   imports: [
     BrowserModule,

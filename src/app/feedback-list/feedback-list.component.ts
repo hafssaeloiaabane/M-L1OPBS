@@ -21,8 +21,9 @@ export class FeedbackListComponent {
   feedbacks: [{
     uname: string,
     msg: string,
+    reply: string,
     key: string
-  }] = [{uname: 'Test1', msg: 'first feedback', key: '0'}];
+  }] = [{uname: 'Test1', msg: 'first feedback', reply: 'nill', key: '0'}];
 
 constructor(private af: AngularFire) {
  this.user$.subscribe(x => {
@@ -35,6 +36,7 @@ constructor(private af: AngularFire) {
                   this.feedbacks[i] = {
                       uname: x[i].uname,
                       msg: x[i].msg,
+                      reply: x[i].reply || 'No Responce Yet',
                       key: x[i].$key
                   };
               }
