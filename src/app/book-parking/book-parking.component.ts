@@ -35,23 +35,32 @@ export class BookParkingComponent {
   @select(['UserReducer', 'type'])
   user$: Observable<any>; // gets User State of the app
 
+  currentDate;
+
   constructor(
     private af: AngularFire,
     private a: MyActions
-  ){}
+  ){
+      this.currentDate = new Date().toISOString().slice(0, 10); // 2017-01-30
+  }
 
   BookParkings(formVal) {
-    formVal.slotId = this.bookedSlotId; // inserts slotid to object
+    if(formVal.date < this.currentDate) {
+      alert('Error: Kindly select a future date!');
+    }
+    else {
+      formVal.slotId = this.bookedSlotId; // inserts slotid to object
 
-    this.user$.subscribe(x => {
-      if( x !== 'signedout') {
-        let slice = x.slice(0, x.indexOf('@')); // extracts username from email
-        // console.log('app state: ', slice);
-        this.af.database.list('/bookings/' + slice) // creates a new node for each user
-        .push(formVal); // pushes formVal on new node each time
-        alert('Parking Slot Booked!');
-      }
-    });
+      this.user$.subscribe(x => {
+        if( x !== 'signedout') {
+          let slice = x.slice(0, x.indexOf('@')); // extracts username from email
+          // console.log('app state: ', slice);
+          this.af.database.list('/bookings/' + slice) // creates a new node for each user
+          .push(formVal); // pushes formVal on new node each time
+          alert('Parking Slot Booked!');
+        }
+      });
+    }
   }
 
   slotBooked(slotId) {

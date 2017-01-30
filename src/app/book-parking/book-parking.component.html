@@ -1,21 +1,30 @@
 <h3> Book Parking Slots </h3>
 <form #bookingsForm="ngForm" (ngSubmit)="BookParkings(bookingsForm.value)">
-  <input type="date"
+
+  <label for="date"> Select Booking Date </label>
+  <input id="date"
+        type="date"
         name="date"
         #date="ngModel"
         [(ngModel)]="pickDate">
-  <select name="start" #start="ngModel" [(ngModel)]="startTime">
+    <br><br>
+
+  <label for="startTime"> Select Start Time </label>
+  <select id="startTime" name="start" #start="ngModel" [(ngModel)]="startTime">
     <option value="6AM"> 6 AM </option>
     <option value="7AM"> 7 AM </option>
     <option value="8AM"> 8 AM </option>
     <option value="9AM"> 9 AM </option>
   </select>
-  <select name="duration" #duration="ngModel" [(ngModel)]="timeDuration"> 
+
+  <label for="duration"> Select Duration </label>
+  <select id="duration" name="duration" #duration="ngModel" [(ngModel)]="timeDuration"> 
     <option value="1"> 1 hour </option>
     <option value="2"> 2 hours </option>
     <option value="3"> 3 hours </option>
     <option value="4"> 4 hours </option>
   </select>
+<br><br>
   <button type="button" md-raised-button color="primary" (click)="show = true">
     View Slots
   </button>
