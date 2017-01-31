@@ -27,7 +27,7 @@ export class BookParkingComponent {
     { id: 9, isBooked: false },
     { id: 10, isBooked: false },
     { id: 11, isBooked: false },
-    { id: 12, isBooked: false },
+    { id: 12, isBooked: false }
   ];
 
   bookings: FirebaseListObservable<any> ;

@@ -17,8 +17,6 @@ import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BookParkingComponent } from './book-parking/book-parking.component';
 import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
-import { SendFeedbackComponent } from './send-feedback/send-feedback.component';
-import { FeedbackListComponent } from './feedback-list/feedback-list.component';
 import { FeebacksComponent } from './feebacks/feebacks.component';
 
 export const myFirebaseConfig = {
@@ -50,8 +48,6 @@ const routes: Routes =[
     DashboardComponent,
     BookParkingComponent,
     ViewBookingsComponent,
-    SendFeedbackComponent,
-    FeedbackListComponent,
     FeebacksComponent
   ],
   imports: [
