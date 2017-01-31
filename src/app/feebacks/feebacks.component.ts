@@ -13,6 +13,7 @@ export class FeebacksComponent {
  
    title: string;
    clicked: boolean = false;
+   
    item: FirebaseListObservable<any> ;
    feedback: FirebaseListObservable<any> ;
 
@@ -21,7 +22,8 @@ export class FeebacksComponent {
   
   key;
   replyKey: string;
-temp;
+  temp;
+
   feedbacks: [{
     uname: string,
     msg: string,
@@ -34,6 +36,9 @@ constructor(private af: AngularFire) {
         this.key = x.slice(0, x.indexOf('@')); // extracts username from email
         console.log('app state: ', this.key);
   });
+
+    this.title = (this.key === 'admin') ? 'All Feedbacks' : 'My Feedbacks';
+
             this.item = this.af.database.list('/feedbacks');
             this.item.subscribe((x) => {
                 for (let i = 0; i < x.length; i++) {
@@ -45,8 +50,8 @@ constructor(private af: AngularFire) {
                   };
               }
             });
-  this.title = (this.key === 'admin') ? 'All Feedbacks' : 'My Feedbacks';
 }
+
   ShowKey(key) {
     this.replyKey = key;
     this.item = this.af.database.list('/feedbacks/' + this.replyKey);
@@ -62,6 +67,7 @@ constructor(private af: AngularFire) {
             });
     console.log(key);
   }
+
   SendFeedback(formValue) {
     formValue.uname = this.key;
     formValue.reply = 'no reply yet';

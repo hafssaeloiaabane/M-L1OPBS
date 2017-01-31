@@ -6,7 +6,7 @@
         <th> S.No. </th>
         <th *ngIf="key === 'admin'"> User Name </th>
         <th> Feedback </th>
-        <th *ngIf="key === 'user'"> Response </th>
+        <th> Response </th>
         <th></th>
       </tr>
     </thead>
@@ -15,7 +15,7 @@
         <td> {{i}} </td>
         <td *ngIf="key === 'admin'"> {{f.uname}} </td>
         <td> {{f.msg}} </td>
-        <td *ngIf="key === 'user'"> {{f.reply}} </td>
+        <td> {{f.reply}} </td>
         <td> 
           <button md-mini-fab color="primary" (click)="clicked = true; ShowKey(this.f.key)" *ngIf="key === 'admin'">
               <i class="material-icons"> reply </i>
@@ -40,7 +40,7 @@
         </button>
     </form>
 </div>
-<div *ngIf="key === 'user'">
+<div *ngIf="key !== 'admin'">
     <form #feedbackForm="ngForm" (ngSubmit)="SendFeedback(feedbackForm.value)">
         <md-input
             name="msg"
