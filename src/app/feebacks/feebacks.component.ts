@@ -24,6 +24,13 @@ export class FeebacksComponent {
   replyKey: string;
   temp;
 
+  tempFeedbacks:  [{
+    uname: string,
+    msg: string,
+    reply: string,
+    key: string
+  }] = [{uname: 'Test1', msg: 'first feedback', reply: 'nill', key: '0'}];
+
   feedbacks: [{
     uname: string,
     msg: string,

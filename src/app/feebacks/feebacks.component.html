@@ -10,18 +10,18 @@
         <th></th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let f of feedbacks; let i = index">
-        <td> {{i}} </td>
-        <td *ngIf="key === 'admin'"> {{f.uname}} </td>
-        <td> {{f.msg}} </td>
-        <td> {{f.reply}} </td>
-        <td> 
-          <button md-mini-fab color="primary" (click)="clicked = true; ShowKey(this.f.key)" *ngIf="key === 'admin'">
-              <i class="material-icons"> reply </i>
-          </button>
-        </td>
-      </tr>
+      <tbody *ngFor="let f of feedbacks; let i = index">
+        <tr *ngIf="key === f.uname || key === 'admin'">
+          <td> {{i}} </td>
+          <td *ngIf="key === 'admin'"> {{f.uname}} </td>
+          <td> {{f.msg}} </td>
+          <td> {{f.reply}} </td>
+          <td> 
+            <button md-mini-fab color="primary" (click)="clicked = true; ShowKey(this.f.key)" *ngIf="key === 'admin'">
+                <i class="material-icons"> reply </i>
+            </button>
+          </td>
+        </tr>
     </tbody>
   </table>
 </div>
