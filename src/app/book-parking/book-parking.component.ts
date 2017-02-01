@@ -83,10 +83,10 @@ export class BookParkingComponent {
     });
   }
 
-validateSlots(formVal) {
+  validateSlots(formVal) {
     for(let i=0; i<this.bookedParkings.length; i++) {
       if(formVal.date === this.bookedParkings[i].date) {
-        if((formVal.start === this.bookedParkings[i].start) && (formVal.duration === this.bookedParkings[i].duration)) {
+        if((formVal.start >= this.bookedParkings[i].start) && (formVal.start <= (this.bookedParkings[i].duration + this.bookedParkings[i].start))) {
           console.log("DATE AND TIME CLASH LETS SEE SLOTS");
           if(this.bookedParkings[i].id) {
             this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
