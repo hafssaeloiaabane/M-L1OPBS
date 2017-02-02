@@ -74,7 +74,7 @@ constructor(private af: AngularFire) {
       });
     }
 
-    if(!this.isAdmin) {
+    if (!this.isAdmin) {
             this.item = this.af.database.list('/bookings/' + this.key);
             this.item.subscribe((x) => {
                 for (let i = 0; i < x.length; i++) {
