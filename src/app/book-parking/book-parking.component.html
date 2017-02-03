@@ -24,25 +24,22 @@
     <option value="3"> 3 hours </option>
     <option value="4"> 4 hours </option>
   </select>
-<br><br>
+  <br><br>
 
   <button type="button" md-raised-button color="primary" (click)="show = true ; validateSlots(bookingsForm.value)">
     View Slots
   </button>
+  <br><br>
+  
+  <div *ngIf="show">
 
-<div *ngIf="show">
-  <md-card *ngFor="let s of slots; let i = index">
-    <button
-      md-raised-button 
-      [color]="s.color"
-      type="button"
+  <md-button-toggle-group #group="mdButtonToggleGroup" type="submit">
+    <md-button-toggle value="slot" 
+      *ngFor="let s of slots; let i = index"
       (click)="slotBooked(s); s.isBooked = true; s.color = 'accent'">
-            Slot{{s.id}}
-    </button>
-  </md-card>
-</div>
-  <button md-raised-button color="warn" type="submit">
-    Submit Selection
-  </button>
+          <button md-raised-button [color]="s.color"> Slot{{s.id}} </button>
+    </md-button-toggle>
+  </md-button-toggle-group>
 
+  </div>
 </form>

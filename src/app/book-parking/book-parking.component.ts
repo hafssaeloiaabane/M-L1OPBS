@@ -12,6 +12,7 @@ import { MyActions } from '../store/actions';
 export class BookParkingComponent {
   
   bookedSlots: number[] = [-1];
+  default: number[] = [-1];
   bookedSlotId: number;
   show: boolean = false;
   errorFlag: boolean;
@@ -67,7 +68,7 @@ export class BookParkingComponent {
                       continue;
                     }
                     if (typeof x[i][k] != 'function'){
-                      console.log("kya push kia temp m? ", x[i][k]);
+                      // console.log("kya push kia temp m? ", x[i][k]);
                         temp.push({
                           id: x[i][k].slotId,
                           user: x[i].$key,
@@ -100,14 +101,15 @@ export class BookParkingComponent {
               ||
               ((parseInt(formVal.start) < parseInt(this.bookedParkings[i].start)) && ((parseInt(formVal.start)+ parseInt(formVal.duration)) > parseInt(this.bookedParkings[i].start))) //cant
                 ){
-                    this.bookedSlots.push(parseInt(this.bookedParkings[i].id));            
-                    console.log("push", this.bookedParkings[i].id);
+                    this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
+                    this.default.push(parseInt(this.bookedParkings[i].id));            
+                    // console.log("push", this.bookedParkings[i].id);
             }
           }
         }
-        console.log('slots booked ', this.bookedSlots);
+        // console.log('slots booked ', this.bookedSlots);
         for(let j = 1; j < this.bookedSlots.length; j++) {
-          console.log('this.bookedSlots[j]',this.bookedSlots[j]);
+          // console.log('this.bookedSlots[j]',this.bookedSlots[j]);
           this.slots[this.bookedSlots[j]].isBooked = true;
           this.slots[this.bookedSlots[j]].color = 'accent';
         }
@@ -141,6 +143,8 @@ export class BookParkingComponent {
 
   slotBooked(slotId) {
     this.bookedSlotId = slotId.id;
+    this.default.push(slotId.id); // turn all slots disabled other than these
+    console.log('this.default', this.default); //btn group 
     // baqi sb slots disable krdo
   }
 }
