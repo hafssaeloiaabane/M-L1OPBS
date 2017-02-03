@@ -11,7 +11,7 @@ import { MyActions } from '../store/actions';
 })
 export class BookParkingComponent {
   
-  bookedSlots: number[] = [0];
+  bookedSlots: number[] = [-1];
   bookedSlotId: number;
   show: boolean = false;
   errorFlag: boolean;
@@ -24,7 +24,7 @@ export class BookParkingComponent {
   ];
 
   bookings: FirebaseListObservable<any> ;
-  book: FirebaseListObservable<any> = this.af.database.list('/bookings');
+  book: FirebaseListObservable<any>;
 
   @select(['UserReducer', 'type'])
   user$: Observable<any>; // gets User State of the app
@@ -51,12 +51,13 @@ export class BookParkingComponent {
     private a: MyActions
   ){
       this.currentDate = new Date().toISOString().slice(0, 10); // 2017-01-30
-
-      this.book.take(1)
+      this.af.database.list('/bookings')
+      // .take(1)
       .subscribe( (x) => {
+        console.log('subscribe');
         let temp = [];
               for (let i = 0; i < x.length; i++) {
-                console.log('outerloop: ', x[i])
+                // console.log('outerloop: ', x[i])
                 for (let k in x[i]) {
                     // console.log('innerloop: ', k);
                     if (k === '$key') {
@@ -84,34 +85,37 @@ export class BookParkingComponent {
   }
 
   validateSlots(formVal) {
+    this.bookedSlots = [-1];
     if (formVal.date < this.currentDate) {
       alert('Error: Kindly select a future date!');
     }
     else {
       for (let i = 0; i < this.bookedParkings.length; i++) {
         if (formVal.date === this.bookedParkings[i].date) {
-          console.log('DATE MATCHED', this.bookedParkings[i].id); 
-            if(
-              (parseInt(formVal.start) >= parseInt(this.bookedParkings[i].start))
-              &&
-              ((parseInt(formVal.start) + parseInt(formVal.duration)) <= parseInt(this.bookedParkings[i].end)) 
-            ) {
-                console.log('end time'); // yhn tk ok hai
-              if (this.bookedParkings[i].id ) {
-                this.slots[parseInt(this.bookedParkings[i].id) ].isBooked = true;
-                this.slots[parseInt(this.bookedParkings[i].id) ].color = 'accent';
-                this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
-                console.log("push", this.bookedParkings[i].id);
+          // console.log('DATE MATCHED'); 
+            if ( 
+              (parseInt(formVal.start) === parseInt(this.bookedParkings[i].start)) // cant
+              ||
+              ((parseInt(formVal.start) > parseInt(this.bookedParkings[i].start)) && ((parseInt(formVal.start)+ parseInt(formVal.duration)) < parseInt(this.bookedParkings[i].end))) //cant
+              ||
+              ((parseInt(formVal.start) < parseInt(this.bookedParkings[i].start)) && ((parseInt(formVal.start)+ parseInt(formVal.duration)) > parseInt(this.bookedParkings[i].start))) //cant
+                ){
+                    this.bookedSlots.push(parseInt(this.bookedParkings[i].id));            
+                    console.log("push", this.bookedParkings[i].id);
             }
           }
         }
-      }
         console.log('slots booked ', this.bookedSlots);
+        for(let j = 1; j < this.bookedSlots.length; j++) {
+          console.log('this.bookedSlots[j]',this.bookedSlots[j]);
+          this.slots[this.bookedSlots[j]].isBooked = true;
+          this.slots[this.bookedSlots[j]].color = 'accent';
+        }
     }
   }
 
   BookParkings(formVal) {
-      for (let j = 0; j < this.bookedSlots.length; j++) {
+      for (let j = 1; j < this.bookedSlots.length; j++) {
         if (this.bookedSlotId === this.bookedSlots[j]) {
           this.errorFlag = true;
         }
@@ -137,5 +141,6 @@ export class BookParkingComponent {
 
   slotBooked(slotId) {
     this.bookedSlotId = slotId.id;
+    // baqi sb slots disable krdo
   }
 }

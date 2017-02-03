@@ -76,13 +76,19 @@ constructor(private af: AngularFire) {
   }
 
   SendFeedback(formValue) {
-    formValue.uname = this.key;
-    formValue.reply = 'no reply yet';
-    this.af.database.list('/feedbacks')
-    .push(formValue)
-    .then(() => console.log('success'))
-    .catch(err => console.log('error: ', err)); // formvalue is pushed into the db
-    alert('Feedback Submitted!');
+        console.log('inside send form', formValue.msg);
+    if(formValue.msg) {
+      formValue.uname = this.key;
+      formValue.reply = 'no reply yet';
+      this.af.database.list('/feedbacks')
+      .push(formValue)
+      // .then(() => console.log('success'))
+      // .catch(err => console.log('error: ', err)); // formvalue is pushed into the db
+      alert('Feedback Submitted!');
+    }
+    else {
+      alert('Please enter feedback');
+    }
   }
 
   SendReply(val) {
