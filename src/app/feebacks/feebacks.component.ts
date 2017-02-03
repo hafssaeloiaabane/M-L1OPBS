@@ -40,7 +40,9 @@ export class FeebacksComponent {
 
 constructor(private af: AngularFire) {
  this.user$.subscribe(x => {
+   if(x) {
         this.key = x.slice(0, x.indexOf('@')); // extracts username from email
+   }
         console.log('app state: ', this.key);
   });
 

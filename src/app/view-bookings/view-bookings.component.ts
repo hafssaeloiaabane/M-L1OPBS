@@ -39,9 +39,11 @@ export class ViewBookingsComponent {
 
 constructor(private af: AngularFire) {
     this.user$.subscribe((x) => {
+      if(x) {
          this.key = x.slice(0, x.indexOf('@')); // extracts username from email
         //  console.log('this.key: ', this.key);
          this.isAdmin = (this.key === 'admin') ? true : false;
+      }
     });
 
   // console.log('isAdmin', this.isAdmin);
