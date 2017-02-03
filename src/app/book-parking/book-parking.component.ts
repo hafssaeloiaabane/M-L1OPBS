@@ -34,14 +34,14 @@ export class BookParkingComponent {
     id: string,
     user: string,
     date: string,
-    start: number,
+    start: string,
     end: string,
     duration: number
   }] = [{
     id: 'set',
     user: 'set',
     date: 'set',
-    start: 0,
+    start: '0',
     end: '0',
     duration: 0
   }];
@@ -57,16 +57,16 @@ export class BookParkingComponent {
         let temp = [];
               for (let i = 0; i < x.length; i++) {
                 console.log('outerloop: ', x[i])
-                for(let k in x[i]) {
-                    console.log('innerloop: ', k);
-                    if(k === '$key') {
+                for (let k in x[i]) {
+                    // console.log('innerloop: ', k);
+                    if (k === '$key') {
                       continue;
                     }
-                    if(k === '$exists') {
+                    if (k === '$exists') {
                       continue;
                     }
-                    if(typeof x[i][k] != "function"){
-                      console.log("kya push kia temp m? ",x[i][k] )
+                    if (typeof x[i][k] != 'function'){
+                      console.log("kya push kia temp m? ", x[i][k]);
                         temp.push({
                           id: x[i][k].slotId,
                           user: x[i].$key,
@@ -90,58 +90,49 @@ export class BookParkingComponent {
     else {
       for (let i = 0; i < this.bookedParkings.length; i++) {
         if (formVal.date === this.bookedParkings[i].date) {
-          console.log('DATE MATCHED');
-          if (
-            (this.bookedParkings[i].start <= formVal.start) && (formVal.start <= this.bookedParkings[i].end)
-            // (formVal.start === this.bookedParkings[i].start)
-            // || (
-            // (formVal.start >= this.bookedParkings[i].start)
-            // &&
-            // ((formVal.start + formVal.duration) <= this.bookedParkings[i].end))
+          console.log('DATE MATCHED', this.bookedParkings[i].id); 
+            if(
+              (parseInt(formVal.start) >= parseInt(this.bookedParkings[i].start))
+              &&
+              ((parseInt(formVal.start) + parseInt(formVal.duration)) <= parseInt(this.bookedParkings[i].end)) 
             ) {
-              console.log('DATE AND TIME CLASH LETS SEE SLOTS'); // kool ab ok hai
-              // if(this.bookedParkings[i].id) {
-              //   this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
-              //   for(let j=0; j<this.bookedSlots.length; j++) {
-              //     this.slots[this.bookedSlots[j]].isBooked = true;
-              //     this.slots[this.bookedSlots[j]].color = 'accent';
-              //     // this.slots[this.bookedParkings[j].id].isBooked = true;
-              //     // this.slots[this.bookedParkings[j].id].color = 'accent';
-              //   }
-              //   console.log('slots booked ', this.bookedSlots);
-              //   return this.bookedSlots;
-              // }
-
+                console.log('end time'); // yhn tk ok hai
+              if (this.bookedParkings[i].id ) {
+                this.slots[parseInt(this.bookedParkings[i].id) ].isBooked = true;
+                this.slots[parseInt(this.bookedParkings[i].id) ].color = 'accent';
+                this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
+                console.log("push", this.bookedParkings[i].id);
+            }
           }
         }
       }
+        console.log('slots booked ', this.bookedSlots);
     }
   }
 
   BookParkings(formVal) {
-      let x = this.validateSlots(formVal);
-      console.log('validateSlots returned this: ',x);
-    //   for(let j=0; j<this.bookedSlots.length; j++) {
-    //     if(this.bookedSlotId === x[j]) {
-    //       this.errorFlag = true;
-    //     }
-    //   }
-    //   if(this.errorFlag) {
-    //     alert('Error: Slot is already booked! Kindly select another one');
-    //   }
-    //   else {
-    //     formVal.slotId = this.bookedSlotId; // inserts slotid to object
+      for (let j = 0; j < this.bookedSlots.length; j++) {
+        if (this.bookedSlotId === this.bookedSlots[j]) {
+          this.errorFlag = true;
+        }
+      }
+      if (this.errorFlag) {
+        alert('Error: Slot is already booked! Kindly select another one');
+      }
+      else {
+        formVal.slotId = this.bookedSlotId; // inserts slotid to object
+        this.slots[this.bookedSlotId].isBooked = true;
 
-    //     this.user$.subscribe(x => {
-    //       if( x !== 'signedout') {
-    //         let username = x.slice(0, x.indexOf('@')); // extracts username from email
-    //         // console.log('app state: ', username);
-    //         this.af.database.list('/bookings/' + username) // creates a new node for each user
-    //         .push(formVal); // pushes formVal on new node each time
-    //         alert('Parking Slot Booked!');
-    //       }
-    //     });
-    //   }
+        this.user$.subscribe(x => {
+          if ( x !== 'signedout') {
+            let username = x.slice(0, x.indexOf('@')); // extracts username from email
+            // console.log('app state: ', username);
+            this.af.database.list('/bookings/' + username) // creates a new node for each user
+            .push(formVal); // pushes formVal on new node each time
+            alert('Parking Slot Booked!');
+          }
+        });
+      }
   }
 
   slotBooked(slotId) {
