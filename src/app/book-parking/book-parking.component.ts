@@ -130,7 +130,7 @@ export class BookParkingComponent {
         this.slots[this.bookedSlotId].isBooked = true;
 
         this.user$.subscribe(x => {
-          if ( x !== 'signedout') {
+          if ( x !== 'signedout' &&  x !== undefined) {
             let username = x.slice(0, x.indexOf('@')); // extracts username from email
             // console.log('app state: ', username);
             this.af.database.list('/bookings/' + username) // creates a new node for each user
@@ -143,8 +143,5 @@ export class BookParkingComponent {
 
   slotBooked(slotId) {
     this.bookedSlotId = slotId.id;
-    this.default.push(slotId.id); // turn all slots disabled other than these
-    console.log('this.default', this.default); //btn group 
-    // baqi sb slots disable krdo
   }
 }

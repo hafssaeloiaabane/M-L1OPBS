@@ -20,9 +20,9 @@ export class DashboardComponent  {
     private a: MyActions
   ) {
     this.user$.subscribe(x => {
-      // if (x !== 'signedout' || x !== undefined) {
+      if (x !== 'signedout' && x !== undefined) {
         this.type = (x === 'admin@gmail.com') ? 'isAdmin' : 'isUser';
-      // }
+      }
     });
   }
 
