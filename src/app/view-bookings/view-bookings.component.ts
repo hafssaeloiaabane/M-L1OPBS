@@ -98,7 +98,11 @@ ngOnInit() {
  }
 
   cancelBooking(key, index) { // db key is received as 'key'
+
     this.item = this.af.database.list('/bookings/' + this.key);
+
+    // this.af.database.list('/bookings/' + 'user/' + this.key); //admin ko direct object ni milega use user k bad key milti hai
+
     this.item.subscribe( x => this.item.remove(key) ); // node specified by the key is deleted from the db
     this.bookings.splice(index, 1); // removed from the array
     alert('Success! You cancelled the booking.');
