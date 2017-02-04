@@ -19,7 +19,6 @@ export class FeebacksComponent implements OnInit {
    item: FirebaseListObservable<any> ;
    feedback: FirebaseListObservable<any> ;
 
-  // @select(['UserReducer', 'User'])
   @select(['UserReducer', 'type']) // initialUserState.type 
   user$: Observable<any>; // gets User State of the app
   
