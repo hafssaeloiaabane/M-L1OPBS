@@ -1,9 +1,3 @@
-// export const initialUserState = {
-//     User: {
-//         type: 'signedout',
-//         status: 'signedout'
-//     }
-// };
 export const initialUserState = {
         type: 'signedout',
         status: 'signedout'
