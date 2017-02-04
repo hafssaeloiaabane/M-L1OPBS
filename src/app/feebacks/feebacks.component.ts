@@ -86,7 +86,7 @@ ngOnInit() {
                   };
               }
             });
-    console.log(key);
+    // console.log(key);
   }
 
   SendFeedback(formValue) {
