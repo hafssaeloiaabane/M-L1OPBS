@@ -406,3 +406,8 @@ body {
   .mdl-button--primary.mdl-button--primary.mdl-button--raised, .mdl-button--primary.mdl-button--primary.mdl-button--fab {
     color: white;
     background-color: #673ab7; }
+
+.btnsize {
+    height: 35px;
+    margin-top: 7px;
+}
