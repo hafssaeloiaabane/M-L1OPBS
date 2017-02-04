@@ -1,10 +1,13 @@
+// export const initialUserState = {
+//     User: {
+//         type: 'signedout',
+//         status: 'signedout'
+//     }
+// };
 export const initialUserState = {
-    User: {
         type: 'signedout',
         status: 'signedout'
-    }
 };
-
 export const UserReducer = function(state = initialUserState, action: { type: string, payload?: any}) {
     switch (action.type) {
         case 'SIGN_IN':

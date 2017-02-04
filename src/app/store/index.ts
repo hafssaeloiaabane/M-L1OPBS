@@ -26,7 +26,7 @@ export class StoreModule {
         private devTool: DevToolsExtension
     ) {
         this.ngRedux.configureStore(
-            AppReducer,                 // ToDoReducer
+            AppReducer,                 // MainReducer
             {},                         // initial state
             null,                       // middleware
             [devTool.isEnabled() ? devTool.enhancer() : f => f] // Enhancers

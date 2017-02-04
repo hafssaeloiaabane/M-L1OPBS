@@ -1,5 +1,7 @@
-import { Component,Input } from '@angular/core';
+import { initialUserState } from './../store/reducers';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { ActivatedRoute, Router, Routes } from '@angular/router';
 import { Observable } from 'rxjs';
 import { select } from 'ng2-redux';
 import { MyActions } from '../store/actions';
@@ -9,7 +11,7 @@ import { MyActions } from '../store/actions';
   templateUrl: './feebacks.component.html',
   styleUrls: ['./feebacks.component.css']
 })
-export class FeebacksComponent {
+export class FeebacksComponent implements OnInit {
  
    title: string;
    clicked: boolean = false;
@@ -17,7 +19,8 @@ export class FeebacksComponent {
    item: FirebaseListObservable<any> ;
    feedback: FirebaseListObservable<any> ;
 
-  @select(['UserReducer', 'type'])
+  // @select(['UserReducer', 'User'])
+  @select(['UserReducer', 'type']) // initialUserState.type 
   user$: Observable<any>; // gets User State of the app
   
   key;
@@ -38,13 +41,23 @@ export class FeebacksComponent {
     key: string
   }] = [{uname: 'Test1', msg: 'first feedback', reply: 'nill', key: '0'}];
 
-constructor(private af: AngularFire) {
+constructor(
+    private af: AngularFire,
+    private r: Router,
+    private ar: ActivatedRoute
+  ) {}
+
+ngOnInit() {
  this.user$.subscribe(x => {
-   if(x) {
-        this.key = x.slice(0, x.indexOf('@')); // extracts username from email
+  //  console.log('x',x); 
+   if (x !== 'signedout' && x !== undefined) {
+     this.key = x.slice(0, x.indexOf('@')); // extracts username from email
    }
-        console.log('app state: ', this.key);
-  });
+   else if (x === 'signedout' || x === undefined) {
+     this.r.navigate(['home']);
+   }
+   console.log('app state: ', this.key);
+ });
 
     this.title = (this.key === 'admin') ? 'All Feedbacks' : 'My Feedbacks';
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs';
 import { select } from 'ng2-redux';
@@ -8,7 +8,7 @@ import { MyActions } from '../store/actions';
   templateUrl: './view-bookings.component.html',
   styleUrls: ['./view-bookings.component.css']
 })
-export class ViewBookingsComponent {
+export class ViewBookingsComponent implements OnInit {
 
   key;
   isAdmin: boolean;
@@ -37,9 +37,11 @@ export class ViewBookingsComponent {
     key: 'set'
   }];
 
-constructor(private af: AngularFire) {
+constructor(private af: AngularFire) {}
+
+ngOnInit() {
     this.user$.subscribe((x) => {
-      if(x) {
+      if (x !== 'signedout' && x !== undefined) {
          this.key = x.slice(0, x.indexOf('@')); // extracts username from email
         //  console.log('this.key: ', this.key);
          this.isAdmin = (this.key === 'admin') ? true : false;

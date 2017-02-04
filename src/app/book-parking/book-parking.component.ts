@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs';
 import { select } from 'ng2-redux';
@@ -9,7 +9,7 @@ import { MyActions } from '../store/actions';
   templateUrl: './book-parking.component.html',
   styleUrls: ['./book-parking.component.css']
 })
-export class BookParkingComponent {
+export class BookParkingComponent implements OnInit {
   
   bookedSlots: number[] = [-1];
   default: number[] = [-1];
@@ -50,7 +50,9 @@ export class BookParkingComponent {
   constructor(
     private af: AngularFire,
     private a: MyActions
-  ){
+  ){}
+
+  ngOnInit() {
       this.currentDate = new Date().toISOString().slice(0, 10); // 2017-01-30
       this.af.database.list('/bookings')
       // .take(1)
