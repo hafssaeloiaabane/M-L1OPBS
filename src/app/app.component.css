@@ -64,6 +64,7 @@ body {
   color: #FFF;
   background: #673ab7;
   position: fixed;
+  padding-top: 3px !important;
   font-size: 20px;
   box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 2px 9px 1px rgba(0, 0, 0, 0.12), 0 4px 2px -2px rgba(0, 0, 0, 0.2);
   padding: 16px 16px 0 16px;
@@ -114,8 +115,9 @@ body {
     background: url(/images/ic_add_white_24px.svg) center center no-repeat; }
 
 .header__title {
+  padding-top: 10px !important;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 26px;
   margin: 0;
   -webkit-box-flex: 1;
   -webkit-flex: 1;

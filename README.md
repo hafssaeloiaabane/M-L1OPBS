@@ -4,20 +4,22 @@ The proposed project is a smart real-time parking booking system that provides c
 
 
 ###Technologies Used:
-* Angular2
+* Angular2 with TypeScript
 * Angular Material2
 * AngularFire2
-* Firebaase
+* Firebase RealTime Database
 * RxJS
 * Redux
 
 
 ###Admin Credentials: 
-admin@gmail.com, admin0
+ID: admin@gmail.com 
+PW: admin0
 
 
 ###User Credentials: 
-user@gmail.com, user00
+ID: user@gmail.com
+PW: user00
 
 
 [Demo] (https://l1opbs-4128f.firebaseapp.com)
