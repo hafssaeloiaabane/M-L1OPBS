@@ -55,13 +55,14 @@ ngOnInit() {
       this.userName.subscribe((x) => {
         let temp = [];
               for (let i = 0; i < x.length; i++) {
-                // console.log('users node',x[i]);
-                for(let k in x[i]) {
-                    if(k === '$key') {
+                console.log('users node',x[i]);
+                for (let k in x[i]) {
+                    if (k === '$key') {
                       continue;
                     }
-                    // console.log('booking data:', x[i][k]);
-                    if(typeof x[i][k] != "function"){
+                    // console.log('booking data:', x[i][k] );
+                    if (typeof x[i][k] !== 'function') {
+                      // console.log('@@@@@@@@@', k);
                         temp.push({
                           id: x[i][k].slotId,
                           user: x[i].$key,
@@ -69,12 +70,13 @@ ngOnInit() {
                           start: x[i][k].start,
                           end: parseInt(x[i][k].start) + parseInt(x[i][k].duration) + 'AM',
                           duration: x[i][k].duration,
-                          key: x[i][k].$key
+                          key: k
                         });
                     }
                   }
               }
               this.bookings = <any>temp;
+              console.log('bookings', this.bookings);
       });
     }
 
@@ -97,18 +99,18 @@ ngOnInit() {
     }
  }
 
-  cancelBooking(key, index) { // db key is received as 'key'
+  cancelBooking(currentObject, index) { // db key is received as 'key'
+  // console.log('currentObject.key', currentObject.key, 'currentObject.user', currentObject.user);
+    this.item = this.af.database.list('/bookings/' + currentObject.user); // user
+    this.item.subscribe( (x) => {
+      this.item.remove(currentObject.key);
+    }); // node specified by the key is deleted from the db
 
-    this.item = this.af.database.list('/bookings/' + this.key);
-
-    // this.af.database.list('/bookings/' + 'user/' + this.key); //admin ko direct object ni milega use user k bad key milti hai
-
-    this.item.subscribe( x => this.item.remove(key) ); // node specified by the key is deleted from the db
-    this.bookings.splice(index, 1); // removed from the array
+    this.bookings.splice(index , 1); // removed from the array
     alert('Success! You cancelled the booking.');
   }
 
-  printReceipt(key) {
+  printReceipt() {
     alert('Success! Your receipt is printed.');
   }
 }

@@ -10,12 +10,14 @@ import { MyActions } from '../store/actions';
   styleUrls: ['./book-parking.component.css']
 })
 export class BookParkingComponent implements OnInit {
-  
+
   bookedSlots: number[] = [-1];
   default: number[] = [-1];
   bookedSlotId: number;
   show: boolean = false;
-  errorFlag: boolean;
+  errorFlag: boolean = false;
+  username: string;
+  currentDate;
 
   slots  = [
     { id: 0, isBooked: false, color: 'primary' },
@@ -25,12 +27,10 @@ export class BookParkingComponent implements OnInit {
   ];
 
   bookings: FirebaseListObservable<any> ;
-  book: FirebaseListObservable<any>;
 
   @select(['UserReducer', 'type'])
   user$: Observable<any>; // gets User State of the app
 
-  currentDate;
   bookedParkings: [{
     id: string,
     user: string,
@@ -46,18 +46,23 @@ export class BookParkingComponent implements OnInit {
     end: '0',
     duration: 0
   }];
-
+ngOnInit() {}
   constructor(
     private af: AngularFire,
     private a: MyActions
-  ){}
+  ) {
 
-  ngOnInit() {
       this.currentDate = new Date().toISOString().slice(0, 10); // 2017-01-30
+
+      this.user$.subscribe(x => {
+          if ( x !== 'signedout' &&  x !== undefined) {
+            this.username = x.slice(0, x.indexOf('@')); // extracts username from email
+          }
+      });
+
       this.af.database.list('/bookings')
-      // .take(1)
       .subscribe( (x) => {
-        console.log('subscribe');
+        // console.log('subscribe');
         let temp = [];
               for (let i = 0; i < x.length; i++) {
                 // console.log('outerloop: ', x[i])
@@ -69,7 +74,7 @@ export class BookParkingComponent implements OnInit {
                     if (k === '$exists') {
                       continue;
                     }
-                    if (typeof x[i][k] != 'function'){
+                    if (typeof x[i][k] !== 'function') {
                       // console.log("kya push kia temp m? ", x[i][k]);
                         temp.push({
                           id: x[i][k].slotId,
@@ -82,7 +87,7 @@ export class BookParkingComponent implements OnInit {
                     }
                   }
               }
-              this.bookedParkings = <any>temp;
+        this.bookedParkings = <any>temp;
         console.log('bookedParkings: ', this.bookedParkings);
     });
   }
@@ -95,16 +100,16 @@ export class BookParkingComponent implements OnInit {
     else {
       for (let i = 0; i < this.bookedParkings.length; i++) {
         if (formVal.date === this.bookedParkings[i].date) {
-          // console.log('DATE MATCHED'); 
-            if ( 
+          // console.log('DATE MATCHED');
+            if (
               (parseInt(formVal.start) === parseInt(this.bookedParkings[i].start)) // cant
               ||
               ((parseInt(formVal.start) > parseInt(this.bookedParkings[i].start)) && ((parseInt(formVal.start)+ parseInt(formVal.duration)) < parseInt(this.bookedParkings[i].end))) //cant
               ||
               ((parseInt(formVal.start) < parseInt(this.bookedParkings[i].start)) && ((parseInt(formVal.start)+ parseInt(formVal.duration)) > parseInt(this.bookedParkings[i].start))) //cant
-                ){
+            ) {
                     this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
-                    this.default.push(parseInt(this.bookedParkings[i].id));            
+                    this.default.push(parseInt(this.bookedParkings[i].id));
                     // console.log("push", this.bookedParkings[i].id);
             }
           }
@@ -130,17 +135,11 @@ export class BookParkingComponent implements OnInit {
       else {
         formVal.slotId = this.bookedSlotId; // inserts slotid to object
         this.slots[this.bookedSlotId].isBooked = true;
-
-        this.user$.subscribe(x => {
-          if ( x !== 'signedout' &&  x !== undefined) {
-            let username = x.slice(0, x.indexOf('@')); // extracts username from email
-            // console.log('app state: ', username);
-            this.af.database.list('/bookings/' + username) // creates a new node for each user
-            .push(formVal); // pushes formVal on new node each time
-            alert('Parking Slot Booked!');
-          }
-        });
+        this.af.database.list('/bookings/' + this.username) // creates a new node for each user
+        .push(formVal); // pushes formVal on new node each time
+        alert('Parking Slot Booked!');
       }
+      this.errorFlag = false;
   }
 
   slotBooked(slotId) {

@@ -24,10 +24,10 @@
         <td> {{b.end}} </td>
         <td> {{b.duration}} </td>
         <td> 
-          <button md-mini-fab color="warn" (click)="cancelBooking(this.b.key, this.b)">
+          <button md-mini-fab color="warn" (click)="cancelBooking(this.b, this.i)">
               <i class="material-icons">delete</i>
           </button>
-          <button md-mini-fab color="primary" (click)="printReceipt(this.b.key)">
+          <button md-mini-fab color="primary" (click)="printReceipt()">
               <i class="material-icons">print</i>
           </button>
         </td>
