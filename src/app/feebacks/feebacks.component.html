@@ -1,48 +1,7 @@
-<div>
-  <h3> {{title}} </h3>
-  <table>
-    <thead>
-      <tr>
-        <th> S.No. </th>
-        <th *ngIf="key === 'admin'"> User Name </th>
-        <th> Feedback </th>
-        <th> Response </th>
-        <th></th>
-      </tr>
-    </thead>
-      <tbody *ngFor="let f of feedbacks; let i = index">
-        <tr *ngIf="key === f.uname || key === 'admin'">
-          <td> {{i}} </td>
-          <td *ngIf="key === 'admin'"> {{f.uname}} </td>
-          <td> {{f.msg}} </td>
-          <td> {{f.reply}} </td>
-          <td> 
-            <button md-mini-fab color="primary" (click)="clicked = true; ShowKey(this.f.key)" *ngIf="key === 'admin'">
-                <i class="material-icons"> reply </i>
-            </button>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-</div>
-<br><br>
-<div *ngIf="key === 'admin' && clicked" >
-  <form #replyForm="ngForm" (ngSubmit)="SendReply(replyForm.value)">
-        <md-input
-            name="reply"
-            [(ngModel)]="response"
-            #reply="ngModel"
-            placeholder='Your Reply'
-            dividerColor='primary'>
-        </md-input>
-        <button type='submit' md-mini-fab color='primary'>
-          <i class="material-icons">send</i>
-        </button>
-    </form>
-</div>
+<h3> {{title}} </h3>
 <div *ngIf="key !== 'admin'">
     <form #feedbackForm="ngForm" (ngSubmit)="SendFeedback(feedbackForm.value)">
-        <md-input
+        <md-input class="feedback"
             name="msg"
             [(ngModel)]="message"
             #msg="ngModel"
@@ -53,4 +12,42 @@
           <i class="material-icons">send</i>
         </button>
     </form>
+    <br>
 </div>
+<div *ngIf="key === 'admin' && clicked" >
+  <form #replyForm="ngForm" (ngSubmit)="SendReply(replyForm.value)">
+        <md-input class="feedback"
+            name="reply"
+            [(ngModel)]="response"
+            #reply="ngModel"
+            placeholder='Reply'
+            dividerColor='primary'>
+        </md-input>
+        <button type='submit' md-mini-fab color='primary'>
+          <i class="material-icons">send</i>
+        </button>
+    </form>
+    <br>
+</div>
+  <div class="inlineDisplay" *ngFor="let f of feedbacks; let i = index">
+    <md-card class="cards" *ngIf="key === f.uname || key === 'admin'">
+      <md-card-title class="center title"> {{f.uname}} </md-card-title>
+      <md-card-content class="flexBox">
+        <span class="flex">
+          <h4 class="details"> Feedback : </h4>
+          <p class="details"> {{f.msg}} </p>
+        </span>
+        <span class="flex">
+          <h4 class="details"> Response : </h4>
+          <p class="details"> {{f.reply}} </p>
+        </span>
+      </md-card-content>
+      <md-card-actions class="center">
+          <button md-mini-fab color="primary" (click)="clicked = true; ShowKey(this.f.key)" *ngIf="key === 'admin'">
+              <i class="material-icons"> reply </i>
+          </button>
+      </md-card-actions>
+    </md-card>
+  </div>
+
+

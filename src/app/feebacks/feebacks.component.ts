@@ -9,7 +9,7 @@ import { MyActions } from '../store/actions';
 @Component({
   selector: 'app-feebacks',
   templateUrl: './feebacks.component.html',
-  styleUrls: ['./feebacks.component.css']
+  styleUrls: ['feebacks.component.css']
 })
 export class FeebacksComponent implements OnInit {
  
@@ -90,7 +90,7 @@ ngOnInit() {
   }
 
   SendFeedback(formValue) {
-        console.log('inside send form', formValue.msg);
+    // console.log('inside send form', formValue.msg);
     if(formValue.msg) {
       formValue.uname = this.key;
       formValue.reply = 'no reply yet';

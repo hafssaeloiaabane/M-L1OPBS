@@ -19,7 +19,7 @@
     text-align: center;
 }
 .title {
-    background-color: black; /* darkolivegreen */
+    background-color: rgb(151,104,209);
     color: white;
     padding: inherit;
     text-transform: capitalize;
