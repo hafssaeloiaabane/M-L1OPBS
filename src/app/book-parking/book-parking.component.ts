@@ -20,10 +20,10 @@ export class BookParkingComponent implements OnInit {
   currentDate;
 
   slots  = [
-    { id: 0, isBooked: false, color: 'primary' },
-    { id: 1, isBooked: false, color: 'primary' },
-    { id: 2, isBooked: false, color: 'primary' },
-    { id: 3, isBooked: false, color: 'primary' }
+    { id: 0, isBooked: false, color: 'accent' },
+    { id: 1, isBooked: false, color: 'accent' },
+    { id: 2, isBooked: false, color: 'accent' },
+    { id: 3, isBooked: false, color: 'accent' }
   ];
 
   bookings: FirebaseListObservable<any> ;
@@ -75,7 +75,7 @@ ngOnInit() {}
                       continue;
                     }
                     if (typeof x[i][k] !== 'function') {
-                      // console.log("kya push kia temp m? ", x[i][k]);
+                      // console.log("pushed in temp? ", x[i][k]);
                         temp.push({
                           id: x[i][k].slotId,
                           user: x[i].$key,
@@ -93,44 +93,56 @@ ngOnInit() {}
   }
 
   validateSlots(formVal) {
-    this.bookedSlots = [-1];
-    if (formVal.date < this.currentDate) {
-      alert('Error: Kindly select a future date!');
+    if(
+        (formVal.date === undefined || formVal.date === null) 
+        ||
+        (formVal.start === undefined || formVal.start === null)
+        ||
+        (formVal.duration === undefined || formVal.duration === null)
+      ) {
+      alert('Kindly fill the Form');
     }
     else {
-      for (let i = 0; i < this.bookedParkings.length; i++) {
-        if (formVal.date === this.bookedParkings[i].date) {
-          // console.log('DATE MATCHED');
-            if (
-              (parseInt(formVal.start) === parseInt(this.bookedParkings[i].start)) // cant
-              ||
-              ((parseInt(formVal.start) > parseInt(this.bookedParkings[i].start)) && ((parseInt(formVal.start)+ parseInt(formVal.duration)) < parseInt(this.bookedParkings[i].end))) //cant
-              ||
-              ((parseInt(formVal.start) < parseInt(this.bookedParkings[i].start)) && ((parseInt(formVal.start)+ parseInt(formVal.duration)) > parseInt(this.bookedParkings[i].start))) //cant
-            ) {
-                    this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
-                    this.default.push(parseInt(this.bookedParkings[i].id));
-                    // console.log("push", this.bookedParkings[i].id);
+      this.show = true;
+      this.bookedSlots = [-1];
+      if (formVal.date < this.currentDate) {
+        alert('Error: Kindly select a future date!');
+      }
+      else {
+        for (let i = 0; i < this.bookedParkings.length; i++) {
+          if (formVal.date === this.bookedParkings[i].date) {
+            // console.log('DATE MATCHED');
+              if (
+                (parseInt(formVal.start) === parseInt(this.bookedParkings[i].start)) // cant
+                ||
+                ((parseInt(formVal.start) > parseInt(this.bookedParkings[i].start)) && ((parseInt(formVal.start)+ parseInt(formVal.duration)) < parseInt(this.bookedParkings[i].end))) //cant
+                ||
+                ((parseInt(formVal.start) < parseInt(this.bookedParkings[i].start)) && ((parseInt(formVal.start)+ parseInt(formVal.duration)) > parseInt(this.bookedParkings[i].start))) //cant
+              ) {
+                      this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
+                      this.default.push(parseInt(this.bookedParkings[i].id));
+                      // console.log("push", this.bookedParkings[i].id);
+              }
             }
           }
-        }
-        // console.log('slots booked ', this.bookedSlots);
-        for(let j = 1; j < this.bookedSlots.length; j++) {
-          // console.log('this.bookedSlots[j]',this.bookedSlots[j]);
-          this.slots[this.bookedSlots[j]].isBooked = true;
-          this.slots[this.bookedSlots[j]].color = 'accent';
-        }
+          // console.log('slots booked ', this.bookedSlots);
+          for(let j = 1; j < this.bookedSlots.length; j++) {
+            // console.log('this.bookedSlots[j]',this.bookedSlots[j]);
+            this.slots[this.bookedSlots[j]].isBooked = true;
+            this.slots[this.bookedSlots[j]].color = 'warn';
+          }
+      }
     }
   }
 
-  BookParkings(formVal) {
+  BookParkings(formVal, form) {
       for (let j = 1; j < this.bookedSlots.length; j++) {
         if (this.bookedSlotId === this.bookedSlots[j]) {
           this.errorFlag = true;
         }
       }
       if (this.errorFlag) {
-        alert('Error: Slot is already booked! Kindly select another one');
+        alert('Error: Slot is already booked!');
       }
       else {
         formVal.slotId = this.bookedSlotId; // inserts slotid to object
@@ -138,11 +150,14 @@ ngOnInit() {}
         this.af.database.list('/bookings/' + this.username) // creates a new node for each user
         .push(formVal); // pushes formVal on new node each time
         alert('Parking Slot Booked!');
+        this.show = false;
+        form.reset(); //form emptied
       }
-      this.errorFlag = false;
+    this.errorFlag = false;
   }
 
   slotBooked(slotId) {
     this.bookedSlotId = slotId.id;
   }
+
 }

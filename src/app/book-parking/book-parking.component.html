@@ -1,5 +1,5 @@
 <h3> Book Parking Slots </h3>
-<form #bookingsForm="ngForm" (ngSubmit)="BookParkings(bookingsForm.value)">
+<form #bookingsForm="ngForm" (ngSubmit)="BookParkings(bookingsForm.value, bookingsForm)">
 
   <label for="date"> Select Booking Date </label>
   <input id="date"
@@ -26,20 +26,20 @@
   </select>
   <br><br>
 
-  <button type="button" md-raised-button color="primary" (click)="show = true ; validateSlots(bookingsForm.value)">
+  <button type="button" md-raised-button color="primary" (click)="validateSlots(bookingsForm.value)">
     View Slots
   </button>
+
   <br><br>
-  
   <div *ngIf="show">
 
-  <md-button-toggle-group #group="mdButtonToggleGroup" type="submit">
-    <md-button-toggle value="slot" 
-      *ngFor="let s of slots; let i = index"
-      (click)="slotBooked(s); s.isBooked = true; s.color = 'accent'">
-          <button md-raised-button [color]="s.color"> Slot{{s.id}} </button>
-    </md-button-toggle>
-  </md-button-toggle-group>
+    <md-button-toggle-group #group="mdButtonToggleGroup" type="submit">
+      <md-button-toggle value="slot" 
+        *ngFor="let s of slots; let i = index"
+        (click)="slotBooked(s); s.isBooked = true; s.color = 'warn'">
+            <button md-raised-button [color]="s.color"> Slot{{s.id}} </button>
+      </md-button-toggle>
+    </md-button-toggle-group>
 
   </div>
 </form>

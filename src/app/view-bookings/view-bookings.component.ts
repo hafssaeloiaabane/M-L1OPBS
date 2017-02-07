@@ -86,7 +86,7 @@ ngOnInit() {
                 for (let i = 0; i < x.length; i++) {
                   this.bookings[i] = {
                     id: x[i].slotId,
-                    user: 'self',
+                    user: this.key,
                     date: x[i].date,
                     start: x[i].start,
                     end: parseInt(x[i].start) + parseInt(x[i].duration) + 'AM',
