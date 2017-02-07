@@ -1,0 +1,13 @@
+{
+  "name": "Online Parking Booking App",
+  "short_name": "Parking App",
+  "icons": [{
+      "src": "assets/icon.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#673ab7",
+  "theme_color": "#673ab7"
+}
