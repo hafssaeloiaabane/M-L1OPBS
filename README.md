@@ -8,6 +8,7 @@ The proposed project is a smart real-time parking booking system that provides c
 * Angular Material2
 * AngularFire2
 * Firebase RealTime Database
+* Progressive Web App
 * RxJS
 * Redux
 
