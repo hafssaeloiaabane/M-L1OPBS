@@ -152,6 +152,10 @@ ngOnInit() {}
         alert('Parking Slot Booked!');
         this.show = false;
         form.reset(); //form emptied
+        for(let i = 0; i < this.slots.length; i++) {
+          this.slots[i].color = 'primary';
+          this.slots[i].isBooked = false;
+        }
       }
     this.errorFlag = false;
   }
@@ -163,6 +167,10 @@ ngOnInit() {}
   resetForm(form) {
     this.show = false; // slots hidden
     form.reset(); //form emptied
+    for(let i = 0; i < this.slots.length; i++) {
+      this.slots[i].color = 'primary';
+      this.slots[i].isBooked = false;
+    }
   }
 
 }

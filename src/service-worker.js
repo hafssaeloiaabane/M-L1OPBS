@@ -5,7 +5,8 @@ var filesToCache = [
   '/',
   '/index.html',
   '/assets/logo.jpg',
-  '/assets/logo.png'
+  '/assets/logo.png',
+  '/assets/icon.png'
 ];
 
 self.addEventListener('install', function(e) {
