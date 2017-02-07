@@ -20,10 +20,10 @@ export class BookParkingComponent implements OnInit {
   currentDate;
 
   slots  = [
-    { id: 0, isBooked: false, color: 'accent' },
-    { id: 1, isBooked: false, color: 'accent' },
-    { id: 2, isBooked: false, color: 'accent' },
-    { id: 3, isBooked: false, color: 'accent' }
+    { id: 0, isBooked: false, color: 'primary' },
+    { id: 1, isBooked: false, color: 'primary' },
+    { id: 2, isBooked: false, color: 'primary' },
+    { id: 3, isBooked: false, color: 'primary' }
   ];
 
   bookings: FirebaseListObservable<any> ;
@@ -129,7 +129,7 @@ ngOnInit() {}
           for(let j = 1; j < this.bookedSlots.length; j++) {
             // console.log('this.bookedSlots[j]',this.bookedSlots[j]);
             this.slots[this.bookedSlots[j]].isBooked = true;
-            this.slots[this.bookedSlots[j]].color = 'warn';
+            this.slots[this.bookedSlots[j]].color = 'accent';
           }
       }
     }
@@ -158,6 +158,11 @@ ngOnInit() {}
 
   slotBooked(slotId) {
     this.bookedSlotId = slotId.id;
+  }
+
+  resetForm(form) {
+    this.show = false; // slots hidden
+    form.reset(); //form emptied
   }
 
 }

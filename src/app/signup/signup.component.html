@@ -11,8 +11,7 @@
                 name="uname"
                 type="text"
                 #uname="ngModel"
-                [(ngModel)]="username"
-                pattern="[a-z]+ [a-z]{3,12}">
+                [(ngModel)]="username">
             </md-input>
             <small [hidden]="uname.valid || (uname.pristine && !SignUpForm._submitted)" class="alert alert-danger">
                 Invalid Name! 

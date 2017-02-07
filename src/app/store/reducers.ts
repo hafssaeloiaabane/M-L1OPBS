@@ -7,7 +7,7 @@ export const UserReducer = function(state = initialUserState, action: { type: st
         case 'SIGN_IN':
             return Object.assign({}, state, { type: action.payload });
         case 'SIGN_UP':
-            return Object.assign({}, state, { type: 'isUser' });
+            return Object.assign({}, state, { type: action.payload });
         case 'SIGN_OUT':
             return Object.assign({}, state, { type: action.payload });
         default:

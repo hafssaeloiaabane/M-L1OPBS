@@ -21,16 +21,19 @@ export class SignupComponent {
 
   SignUp(value) {
     // 'signup' action dispatched from redux
-    this.a.signUp(value.uname);
+    this.a.signUp(value.emlid);
 
     this.af.auth.createUser(
       {email: value.emlid, password: value.pcode}
     );
-    alert(` Hi ${value.uname}, Welcome! `);
-    this.routeTo('dashboard');
+
+    let firstChar = value.uname.charAt(0);
+    let capitalize = firstChar.toUpperCase();
+    let uname = value.uname.replace(firstChar, capitalize);
+    // console.log(value.uname, uname);
+
+    alert(` Hi ${uname}, Welcome! `);
+    this.route.navigate(['dashboard']);
   }
 
-  routeTo(x) {
-    this.route.navigate([x]);
-  }
 }

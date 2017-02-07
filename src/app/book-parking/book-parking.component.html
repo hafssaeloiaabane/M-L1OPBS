@@ -29,6 +29,9 @@
   <button type="button" md-raised-button color="primary" (click)="validateSlots(bookingsForm.value)">
     View Slots
   </button>
+    <button type="button" md-raised-button color="warn" (click)="resetForm(bookingsForm)">
+    Reset
+  </button>
 
   <br><br>
   <div *ngIf="show">
@@ -36,7 +39,7 @@
     <md-button-toggle-group #group="mdButtonToggleGroup" type="submit">
       <md-button-toggle value="slot" 
         *ngFor="let s of slots; let i = index"
-        (click)="slotBooked(s); s.isBooked = true; s.color = 'warn'">
+        (click)="slotBooked(s); s.isBooked = true; s.color = 'accent'">
             <button md-raised-button [color]="s.color"> Slot{{s.id}} </button>
       </md-button-toggle>
     </md-button-toggle-group>
