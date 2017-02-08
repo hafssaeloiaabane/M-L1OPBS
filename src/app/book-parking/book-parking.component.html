@@ -1,12 +1,13 @@
 <h3> Book Parking Slots </h3>
-<form #bookingsForm="ngForm" (ngSubmit)="BookParkings(bookingsForm.value, bookingsForm)">
+<form #bookingsForm="ngForm" (ngSubmit)="BookParkings(bookingsForm.value, bookingsForm)" (change)="validateSlots(bookingsForm.value)">
 
   <label for="date"> Select Booking Date </label>
   <input id="date"
         type="date"
         name="date"
         #date="ngModel"
-        [(ngModel)]="pickDate">
+        [(ngModel)]="pickDate"
+        (input)="isPastDate(date.value)">
     <br><br>
 
   <label for="startTime"> Select Start Time </label>
