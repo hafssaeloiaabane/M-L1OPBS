@@ -12,10 +12,18 @@
 
   <label for="startTime"> Select Start Time </label>
   <select id="startTime" name="start" #start="ngModel" [(ngModel)]="startTime">
+    <option value="1AM"> 1 AM </option>
+    <option value="2AM"> 2 AM </option>
+    <option value="3AM"> 3 AM </option>
+    <option value="4AM"> 4 AM </option>
+    <option value="5AM"> 5 AM </option>
     <option value="6AM"> 6 AM </option>
     <option value="7AM"> 7 AM </option>
     <option value="8AM"> 8 AM </option>
     <option value="9AM"> 9 AM </option>
+    <option value="10AM"> 10 AM </option>
+    <option value="11AM"> 11 AM </option>
+    <option value="12AM"> 12 AM </option>
   </select>
 
   <label for="duration"> Select Duration </label>
@@ -24,6 +32,7 @@
     <option value="2"> 2 hours </option>
     <option value="3"> 3 hours </option>
     <option value="4"> 4 hours </option>
+    <option value="5"> 5 hours </option>
   </select>
   <br><br>
 

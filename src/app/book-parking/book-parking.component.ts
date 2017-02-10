@@ -120,19 +120,37 @@ export class BookParkingComponent {
         for (let i = 0; i < this.bookedParkings.length; i++) {
           if (this.pickDate === this.bookedParkings[i].date) {
             // console.log('DATE MATCHED');
-              if (
-                (parseInt(this.startTime) === parseInt(this.bookedParkings[i].start)) // cant
-                ||
-                ((parseInt(this.startTime) > parseInt(this.bookedParkings[i].start)) && ((parseInt(this.startTime)+ parseInt(this.timeDuration)) < parseInt(this.bookedParkings[i].end))) //cant
-                ||
-                ((parseInt(this.startTime) < parseInt(this.bookedParkings[i].start)) && ((parseInt(this.startTime)+ parseInt(this.timeDuration)) > parseInt(this.bookedParkings[i].start))) //cant
-              ) {
-                      this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
-                      this.default.push(parseInt(this.bookedParkings[i].id));
-                      // console.log("push", this.bookedParkings[i].id);
+            if (parseInt(this.startTime) === parseInt(this.bookedParkings[i].start)) {
+              // console.log('1', this.startTime, this.bookedParkings[i].start);
+              this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
+              this.default.push(parseInt(this.bookedParkings[i].id));
+            }
+            else if(parseInt(this.startTime) > parseInt(this.bookedParkings[i].start)) {
+              // console.log('2.1',this.startTime,this.bookedParkings[i].end)
+                    if(parseInt(this.startTime) < parseInt(this.bookedParkings[i].end)) { 
+                          // console.log('<<<<<<<<<',this.startTime,this.bookedParkings[i].end);
+                          this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
+                          this.default.push(parseInt(this.bookedParkings[i].id));
+                    } 
+                    else if(((parseInt(this.startTime) + parseInt(this.timeDuration)) > parseInt(this.bookedParkings[i].start)) //9>6
+                            &&
+                          ((parseInt(this.startTime) + parseInt(this.timeDuration)) < parseInt(this.bookedParkings[i].end))) 
+                              {
+                                  // console.log('2.2: form ka end > booked k satrt se OR < booked k end se');
+                                  this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
+                                  this.default.push(parseInt(this.bookedParkings[i].id)); 
+                              }
+            }
+            else if(parseInt(this.startTime) < parseInt(this.bookedParkings[i].start)) {
+              // console.log('3.1')
+                    if(((parseInt(this.startTime) + parseInt(this.timeDuration)) > parseInt(this.bookedParkings[i].start))){ 
+                        // console.log('3.2');
+                        this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
+                        this.default.push(parseInt(this.bookedParkings[i].id));
               }
             }
           }
+        }
           // console.log('slots booked ', this.bookedSlots);
           for(let j = 1; j < this.bookedSlots.length; j++) {
             // console.log('this.bookedSlots[j]',this.bookedSlots[j]);
