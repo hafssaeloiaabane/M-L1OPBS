@@ -57,7 +57,7 @@ export class BookParkingComponent {
   ) {
 
       this.currentDate = new Date().toISOString().slice(0, 10); // 2017-01-30
-     
+
       this.user$.subscribe(x => {
           if ( x !== 'signedout' &&  x !== undefined) {
             this.username = x.slice(0, x.indexOf('@')); // extracts username from email
@@ -103,8 +103,8 @@ export class BookParkingComponent {
   }
 
   validateSlots(formVal) {
-    if(
-        (this.pickDate === undefined || this.pickDate === null) 
+    if ( // form is empty
+        (this.pickDate === undefined || this.pickDate === null)
         &&
         (this.startTime === undefined || this.startTime === null)
         &&
@@ -118,42 +118,28 @@ export class BookParkingComponent {
       this.resetSlots();
 
         for (let i = 0; i < this.bookedParkings.length; i++) {
-          if (this.pickDate === this.bookedParkings[i].date) {
-            // console.log('DATE MATCHED');
-            if (parseInt(this.startTime) === parseInt(this.bookedParkings[i].start)) {
-              // console.log('1', this.startTime, this.bookedParkings[i].start);
-              this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
-              this.default.push(parseInt(this.bookedParkings[i].id));
+          if (this.pickDate === this.bookedParkings[i].date) { // DATE MATCHED
+            if (parseInt(this.startTime) === parseInt(this.bookedParkings[i].start)) { // same start time
+              this.pushToBookedSlots(i);
             }
-            else if(parseInt(this.startTime) > parseInt(this.bookedParkings[i].start)) {
-              // console.log('2.1',this.startTime,this.bookedParkings[i].end)
-                    if(parseInt(this.startTime) < parseInt(this.bookedParkings[i].end)) { 
-                          // console.log('<<<<<<<<<',this.startTime,this.bookedParkings[i].end);
-                          this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
-                          this.default.push(parseInt(this.bookedParkings[i].id));
-                    } 
-                    else if(((parseInt(this.startTime) + parseInt(this.timeDuration)) > parseInt(this.bookedParkings[i].start)) //9>6
-                            &&
-                          ((parseInt(this.startTime) + parseInt(this.timeDuration)) < parseInt(this.bookedParkings[i].end))) 
-                              {
-                                  // console.log('2.2: form ka end > booked k satrt se OR < booked k end se');
-                                  this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
-                                  this.default.push(parseInt(this.bookedParkings[i].id)); 
+            else if (parseInt(this.startTime) > parseInt(this.bookedParkings[i].start)) { // form start time is after booked start time
+                    if (parseInt(this.startTime) < parseInt(this.bookedParkings[i].end)) { // form start time is before booked end time
+                          this.pushToBookedSlots(i);
+                    }
+                    else if (((parseInt(this.startTime) + parseInt(this.timeDuration)) > parseInt(this.bookedParkings[i].start)) // form duration is > booked start time
+                            &&                                                                                                   // and
+                            ((parseInt(this.startTime) + parseInt(this.timeDuration)) < parseInt(this.bookedParkings[i].end))) {   // is < booked end time
+                                  this.pushToBookedSlots(i);
                               }
             }
-            else if(parseInt(this.startTime) < parseInt(this.bookedParkings[i].start)) {
-              // console.log('3.1')
-                    if(((parseInt(this.startTime) + parseInt(this.timeDuration)) > parseInt(this.bookedParkings[i].start))){ 
-                        // console.log('3.2');
-                        this.bookedSlots.push(parseInt(this.bookedParkings[i].id));
-                        this.default.push(parseInt(this.bookedParkings[i].id));
-              }
+            else if (parseInt(this.startTime) < parseInt(this.bookedParkings[i].start)) { // start time is prior to booked start time
+                    if (((parseInt(this.startTime) + parseInt(this.timeDuration)) > parseInt(this.bookedParkings[i].start))) { // form duration > booked start time
+                        this.pushToBookedSlots(i);
+                    }
             }
           }
         }
-          // console.log('slots booked ', this.bookedSlots);
-          for(let j = 1; j < this.bookedSlots.length; j++) {
-            // console.log('this.bookedSlots[j]',this.bookedSlots[j]);
+          for (let j = 1; j < this.bookedSlots.length; j++) { // slots booked
             this.slots[this.bookedSlots[j]].isBooked = true;
             this.slots[this.bookedSlots[j]].color = 'accent';
           }
@@ -176,7 +162,7 @@ export class BookParkingComponent {
         .push(formVal); // pushes formVal on new node each time
         alert('Parking Slot Booked!');
         this.show = false;
-        form.reset(); //form emptied
+        form.reset(); // form emptied
         this.resetSlots();
 
       }
@@ -187,17 +173,22 @@ export class BookParkingComponent {
     this.bookedSlotId = slotId.id;
   }
 
-  resetForm(form) {
+  resetForm(form) { // empties the form
     this.show = false; // slots hidden
-    form.reset(); //form emptied
+    form.reset(); // form emptied
     this.resetSlots();
   }
 
-  resetSlots() {
-    for(let i = 0; i < this.slots.length; i++) {
+  resetSlots() { // reset slots to available
+    for (let i = 0; i < this.slots.length; i++) {
       this.slots[i].color = 'primary';
       this.slots[i].isBooked = false;
     }
+  }
+
+  pushToBookedSlots(index) { // throw error if bookedParkings' conditions are met
+    this.bookedSlots.push(parseInt(this.bookedParkings[index].id));
+    this.default.push(parseInt(this.bookedParkings[index].id));
   }
 
 }
