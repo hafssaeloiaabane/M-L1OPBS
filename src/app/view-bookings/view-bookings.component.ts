@@ -3,6 +3,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs';
 import { select } from 'ng2-redux';
 import { MyActions } from '../store/actions';
+
 @Component({
   selector: 'app-view-bookings',
   templateUrl: './view-bookings.component.html',
