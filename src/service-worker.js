@@ -4,9 +4,6 @@ var cacheName = 'ParkingApp';
 var filesToCache = [
   '/',
   '/index.html',
-  '/assets/logo.jpg',
-  '/assets/logo.png',
-  '/assets/icon.png',
   '../dist'
 ];
 
