@@ -33,14 +33,13 @@ export class AppComponent {
     });
   }
 
-  signOut() {
-    let data = "Please Sign In to continue...";
-    // 'signout' action dispatched from redux
-    this.actions.signOut();
-    this.angularFire.auth.logout();
+  signOut() {    
+    this.actions.signOut(); // 'signout' action dispatched from redux
+    this.angularFire.auth.logout(); // angularFire authentication log out
     this.router.navigate(['home']); // navigate back to home page
-    // alert('Please Sign In to continue...');
-    this.dialog.open(AlertBoxComponent, data);
+    // dialog box used as alert msg
+    let data = "Please Sign In to continue...";
+    this.dialog.open(AlertBoxComponent, {data});
   }
 
 }

@@ -3,6 +3,8 @@ import { AngularFire, AngularFireModule, AuthProviders, AuthMethods, FirebaseAut
 import { select } from 'ng2-redux';
 import { MyActions } from './../store/actions';
 import { Router } from '@angular/router';
+import { MdDialog } from '@angular/material';
+import { AlertBoxComponent } from '../alert-box/alert-box.component';
 
 @Component({
   selector: 'app-signin',
@@ -16,7 +18,8 @@ export class SigninComponent {
   constructor(
       private angularFire: AngularFire,
       private router: Router,
-      private actions: MyActions
+      private actions: MyActions,
+      public dialog: MdDialog
     ) { }
 
   onSignIn(value) {
@@ -27,7 +30,9 @@ export class SigninComponent {
                 {email: value.eml, password: value.pass},
                 {provider: AuthProviders.Password, method: AuthMethods.Password}
         ).then((res) => {
-                alert('Sign In Successful!');
+                // dialog box used as alert msg
+                let data = "Sign In Successful!";
+                this.dialog.open(AlertBoxComponent, {data});
                 this.router.navigate(['dashboard']);
         }
         , (err) => {

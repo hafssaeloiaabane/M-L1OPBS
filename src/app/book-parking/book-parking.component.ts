@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs';
 import { select } from 'ng2-redux';
+import { MdDialog } from '@angular/material';
+import { AlertBoxComponent } from '../alert-box/alert-box.component';
 
 @Component({
   selector: 'app-book-parking',
@@ -53,7 +55,10 @@ export class BookParkingComponent {
 startTimeArr: string[] = ['1 AM', '2 AM', '3 AM', '4 AM', '5 AM'];
 bookingDuration: string[] = ['1 hour','2 hours','3 hours','4 hours','5 hours'];
 
-  constructor(private angularFire: AngularFire) {
+  constructor(
+    private angularFire: AngularFire,
+    public dialog: MdDialog
+) {
 
       this.currentDate = new Date().toISOString().slice(0, 10); // 2017-01-30
 
@@ -97,7 +102,9 @@ bookingDuration: string[] = ['1 hour','2 hours','3 hours','4 hours','5 hours'];
 
   isPastDate(selectedDate) {
       if (selectedDate < this.currentDate) {
-        alert('Error: Kindly select a future date!');
+        // dialog box used as alert msg
+        let data = "Error: Kindly select a future date!";
+        this.dialog.open(AlertBoxComponent, {data});
       }
   }
 
@@ -109,7 +116,9 @@ bookingDuration: string[] = ['1 hour','2 hours','3 hours','4 hours','5 hours'];
         &&
         (this.timeDuration === undefined || this.timeDuration === null)
       ) {
-      alert('Kindly fill the Form');
+      // dialog box used as alert msg
+      let data = "Kindly fill the Form";
+      this.dialog.open(AlertBoxComponent, {data});
     }
     else {
       this.show = true;
@@ -152,14 +161,20 @@ bookingDuration: string[] = ['1 hour','2 hours','3 hours','4 hours','5 hours'];
         }
       }
       if (this.errorFlag) {
-        alert('Error: Slot is already booked!');
+        // dialog box used as alert msg
+        let data = "Error: Slot is already booked!";
+        this.dialog.open(AlertBoxComponent, {data});
       }
       else {
         formVal.slotId = this.bookedSlotId; // inserts slotid to object
         this.slots[this.bookedSlotId].isBooked = true;
         this.angularFire.database.list('/bookings/' + this.username) // creates a new node for each user
         .push(formVal); // pushes formVal on new node each time
-        alert('Parking Slot Booked!');
+
+        // dialog box used as alert msg
+        let data = "Parking Slot Booked!";
+        this.dialog.open(AlertBoxComponent, {data});
+
         this.show = false;
         form.reset(); // form emptied
         this.resetSlots();

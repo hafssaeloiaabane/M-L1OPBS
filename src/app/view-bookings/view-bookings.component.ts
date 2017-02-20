@@ -3,6 +3,8 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs';
 import { select } from 'ng2-redux';
 import { MyActions } from '../store/actions';
+import { MdDialog } from '@angular/material';
+import { AlertBoxComponent } from '../alert-box/alert-box.component';
 
 @Component({
   selector: 'app-view-bookings',
@@ -38,7 +40,10 @@ export class ViewBookingsComponent implements OnInit {
     key: 'set'
   }];
 
-constructor(private angularFire: AngularFire) {}
+constructor(
+        private angularFire: AngularFire,
+        public dialog: MdDialog
+      ) {}
 
 ngOnInit() {
     this.user$.subscribe((x) => {
@@ -108,10 +113,15 @@ ngOnInit() {
     }); // node specified by the key is deleted from the db
 
     this.bookings.splice(index , 1); // removed from the array
-    alert('Success! You cancelled the booking.');
+
+    // dialog box used as alert msg
+    let data = "Success! You cancelled the booking.";
+    this.dialog.open(AlertBoxComponent, {data});
   }
 
   printReceipt() {
-    alert('Success! Your receipt is printed.');
+    // dialog box used as alert msg
+    let data = "Success! Your receipt is printed.";
+    this.dialog.open(AlertBoxComponent, {data});
   }
 }

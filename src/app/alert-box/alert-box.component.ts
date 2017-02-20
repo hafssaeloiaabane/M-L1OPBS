@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 
 @Component({
@@ -7,10 +7,8 @@ import { MdDialogRef } from '@angular/material';
   styleUrls: ['./alert-box.component.css']
 })
 export class AlertBoxComponent {
-
-  @Input() data: string;
   constructor( public dialogRef: MdDialogRef<AlertBoxComponent>) {
-    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', dialogRef.config);
+    console.log(dialogRef.config.data); // the value passed as input
   }
 
 }

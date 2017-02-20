@@ -5,6 +5,8 @@ import { ActivatedRoute, Router, Routes } from '@angular/router';
 import { Observable } from 'rxjs';
 import { select } from 'ng2-redux';
 import { MyActions } from '../store/actions';
+import { MdDialog } from '@angular/material';
+import { AlertBoxComponent } from '../alert-box/alert-box.component';
 
 @Component({
   selector: 'app-feebacks',
@@ -43,7 +45,8 @@ export class FeebacksComponent implements OnInit {
 constructor(
     private angularFire: AngularFire,
     private router: Router,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    public dialog: MdDialog
   ) {}
 
 ngOnInit() {
@@ -98,10 +101,15 @@ ngOnInit() {
       .push(formValue)
       // .then(() => console.log('success'))
       // .catch(err => console.log('error: ', err)); // formvalue is pushed into the db
-      alert('Feedback Submitted!');
+
+        // dialog box used as alert msg
+        let data = "Feedback Submitted!";
+        this.dialog.open(AlertBoxComponent, {data});
     }
     else {
-      alert('Please enter feedback');
+        // dialog box used as alert msg
+        let data = "Please Enter Feedback!";
+        this.dialog.open(AlertBoxComponent, {data});
     }
   }
 
@@ -109,7 +117,9 @@ ngOnInit() {
     this.temp.reply = val.reply;
     this.angularFire.database.list('/feedbacks') // select node 'feedbacks
       .update(this.replyKey, {'reply': val.reply}); //update its reply key
-    alert('Success, Reply Sent');
+        // dialog box used as alert msg
+        let data = "Success, Reply Sent!";
+        this.dialog.open(AlertBoxComponent, {data});
   }
 }
 
