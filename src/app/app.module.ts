@@ -18,6 +18,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BookParkingComponent } from './book-parking/book-parking.component';
 import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
 import { FeebacksComponent } from './feebacks/feebacks.component';
+import { AlertBoxComponent } from './alert-box/alert-box.component';
 
 export const myFirebaseConfig = {
     apiKey: 'AIzaSyDprS0fjxKqaIWjFwYuTNP844rkWxnjt1k',
@@ -48,7 +49,8 @@ const routes: Routes =[
     DashboardComponent,
     BookParkingComponent,
     ViewBookingsComponent,
-    FeebacksComponent
+    FeebacksComponent,
+    AlertBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,7 @@ const routes: Routes =[
     AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig)
   ],
   providers: [],
+  entryComponents: [AlertBoxComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

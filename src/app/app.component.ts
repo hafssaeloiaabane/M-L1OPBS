@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, Routes } from '@angular/router';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { MdDialog } from '@angular/material';
+import { AlertBoxComponent } from './alert-box/alert-box.component';
 import { Observable } from 'rxjs';
 import { select } from 'ng2-redux';
 import { MyActions } from './store/actions';
@@ -21,7 +23,8 @@ export class AppComponent {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private angularFire: AngularFire,
-    private actions: MyActions
+    private actions: MyActions,
+    public dialog: MdDialog
   ){
     this.user$.subscribe(x => {
         // console.log('app state: ', x);
@@ -31,11 +34,13 @@ export class AppComponent {
   }
 
   signOut() {
+    let data = "Please Sign In to continue...";
     // 'signout' action dispatched from redux
     this.actions.signOut();
     this.angularFire.auth.logout();
     this.router.navigate(['home']); // navigate back to home page
-    alert('Please Sign In to continue...');
+    // alert('Please Sign In to continue...');
+    this.dialog.open(AlertBoxComponent, data);
   }
 
 }
