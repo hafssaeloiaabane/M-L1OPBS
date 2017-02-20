@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select } from 'ng2-redux';
-import { MyActions } from './../store/actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +14,6 @@ export class DashboardComponent implements OnInit {
 
   @select(['UserReducer', 'type'])
   user$: Observable<any>; // gets User State of the app
-
-  constructor (
-    private a: MyActions
-  ) {}
 
   ngOnInit() {
     this.user$.subscribe(x => {

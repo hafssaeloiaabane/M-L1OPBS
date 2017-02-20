@@ -18,10 +18,10 @@ export class AppComponent {
   user$: Observable<any>; // gets User State of the app
 
   constructor(
-    private r: Router,
-    private ar: ActivatedRoute,
-    private af: AngularFire,
-    private a: MyActions
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private angularFire: AngularFire,
+    private actions: MyActions
   ){
     this.user$.subscribe(x => {
         // console.log('app state: ', x);
@@ -32,9 +32,9 @@ export class AppComponent {
 
   signOut() {
     // 'signout' action dispatched from redux
-    this.a.signOut();
-    this.af.auth.logout();
-    this.r.navigate(['home']); // navigate back to home page
+    this.actions.signOut();
+    this.angularFire.auth.logout();
+    this.router.navigate(['home']); // navigate back to home page
     alert('Please Sign In to continue...');
   }
 

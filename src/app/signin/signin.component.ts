@@ -14,21 +14,21 @@ export class SigninComponent {
   index: number;
 
   constructor(
-      private af: AngularFire,
-      private route: Router,
-      private a: MyActions
+      private angularFire: AngularFire,
+      private router: Router,
+      private actions: MyActions
     ) { }
 
   onSignIn(value) {
     // 'signin' action dispatched from redux
-    this.a.signIn(value.eml);
+    this.actions.signIn(value.eml);
 
-    this.af.auth.login(
+    this.angularFire.auth.login(
                 {email: value.eml, password: value.pass},
                 {provider: AuthProviders.Password, method: AuthMethods.Password}
         ).then((res) => {
                 alert('Sign In Successful!');
-                this.route.navigate(['dashboard']);
+                this.router.navigate(['dashboard']);
         }
         , (err) => {
                 alert(err);

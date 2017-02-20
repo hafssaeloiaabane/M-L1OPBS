@@ -13,17 +13,17 @@ export class SignupComponent {
 
   index: number;
   constructor(
-    private af: AngularFire,
-    private route: Router,
-    private ar: ActivatedRoute,
-    private a: MyActions
+    private angularFire: AngularFire,
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private actions: MyActions
   ) {}
 
   SignUp(value) {
     // 'signup' action dispatched from redux
-    this.a.signUp(value.emlid);
+    this.actions.signUp(value.emlid);
 
-    this.af.auth.createUser(
+    this.angularFire.auth.createUser(
       {email: value.emlid, password: value.pcode}
     );
 
@@ -33,7 +33,7 @@ export class SignupComponent {
     // console.log(value.uname, uname);
 
     alert(` Hi ${uname}, Welcome! `);
-    this.route.navigate(['dashboard']);
+    this.router.navigate(['dashboard']);
   }
 
 }

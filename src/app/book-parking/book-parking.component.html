@@ -1,9 +1,8 @@
 <h3> Book Parking Slots </h3>
-<form #bookingsForm="ngForm" (ngSubmit)="BookParkings(bookingsForm.value, bookingsForm)" (change)="validateSlots(bookingsForm.value)">
+<form #bookingsForm="ngForm" (ngSubmit)="BookParkings(bookingsForm.value, bookingsForm)" (formchange)="validateSlots(bookingsForm.value)">
 
-  <label for="date"> Select Booking Date </label>
-  <md-input-container type="date">
-    <input mdInput id="date" type="date" name="date" #date="ngModel" [(ngModel)]="pickDate" (input)="isPastDate(date.value)">
+  <md-input-container placeholder="Select Booking Date" type="date">
+    <input mdInput placeholder="Select Booking Date" id="date" type="date" name="date" #date="ngModel" [(ngModel)]="pickDate" (input)="isPastDate(date.value)">
   </md-input-container>
 
     <br><br>
@@ -22,7 +21,7 @@
     View Slots
   </button>
     <button type="button" md-raised-button color="warn" (click)="resetForm(bookingsForm)">
-    Reset
+    Reset Form
   </button>
 
   <br><br>

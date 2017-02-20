@@ -38,7 +38,7 @@ export class ViewBookingsComponent implements OnInit {
     key: 'set'
   }];
 
-constructor(private af: AngularFire) {}
+constructor(private angularFire: AngularFire) {}
 
 ngOnInit() {
     this.user$.subscribe((x) => {
@@ -52,7 +52,7 @@ ngOnInit() {
   // console.log('isAdmin', this.isAdmin);
 
     if (this.isAdmin) {
-      this.userName = this.af.database.list('/bookings');
+      this.userName = this.angularFire.database.list('/bookings');
       this.userName.subscribe((x) => {
         let temp = [];
               for (let i = 0; i < x.length; i++) {
@@ -82,7 +82,7 @@ ngOnInit() {
     }
 
     if (!this.isAdmin) {
-            this.item = this.af.database.list('/bookings/' + this.key);
+            this.item = this.angularFire.database.list('/bookings/' + this.key);
             this.item.subscribe((x) => {
                 for (let i = 0; i < x.length; i++) {
                   this.bookings[i] = {
@@ -102,7 +102,7 @@ ngOnInit() {
 
   cancelBooking(currentObject, index) { // db key is received as 'key'
   // console.log('currentObject.key', currentObject.key, 'currentObject.user', currentObject.user);
-    this.item = this.af.database.list('/bookings/' + currentObject.user); // user
+    this.item = this.angularFire.database.list('/bookings/' + currentObject.user); // user
     this.item.subscribe( (x) => {
       this.item.remove(currentObject.key);
     }); // node specified by the key is deleted from the db

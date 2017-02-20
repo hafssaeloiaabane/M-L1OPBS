@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs';
 import { select } from 'ng2-redux';
-import { MyActions } from '../store/actions';
 
 @Component({
   selector: 'app-book-parking',
@@ -54,10 +53,7 @@ export class BookParkingComponent {
 startTimeArr: string[] = ['1 AM', '2 AM', '3 AM', '4 AM', '5 AM'];
 bookingDuration: string[] = ['1 hour','2 hours','3 hours','4 hours','5 hours'];
 
-  constructor(
-    private af: AngularFire,
-    private a: MyActions
-  ) {
+  constructor(private angularFire: AngularFire) {
 
       this.currentDate = new Date().toISOString().slice(0, 10); // 2017-01-30
 
@@ -67,7 +63,7 @@ bookingDuration: string[] = ['1 hour','2 hours','3 hours','4 hours','5 hours'];
           }
       });
 
-      this.af.database.list('/bookings')
+      this.angularFire.database.list('/bookings')
       .subscribe( (x) => {
         // console.log('subscribe');
         let temp = [];
@@ -161,7 +157,7 @@ bookingDuration: string[] = ['1 hour','2 hours','3 hours','4 hours','5 hours'];
       else {
         formVal.slotId = this.bookedSlotId; // inserts slotid to object
         this.slots[this.bookedSlotId].isBooked = true;
-        this.af.database.list('/bookings/' + this.username) // creates a new node for each user
+        this.angularFire.database.list('/bookings/' + this.username) // creates a new node for each user
         .push(formVal); // pushes formVal on new node each time
         alert('Parking Slot Booked!');
         this.show = false;

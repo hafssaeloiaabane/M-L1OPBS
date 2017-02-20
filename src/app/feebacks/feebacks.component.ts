@@ -41,9 +41,9 @@ export class FeebacksComponent implements OnInit {
   }] = [{uname: 'Test1', msg: 'first feedback', reply: 'nill', key: '0'}];
 
 constructor(
-    private af: AngularFire,
-    private r: Router,
-    private ar: ActivatedRoute
+    private angularFire: AngularFire,
+    private router: Router,
+    private activeRoute: ActivatedRoute
   ) {}
 
 ngOnInit() {
@@ -53,14 +53,14 @@ ngOnInit() {
      this.key = x.slice(0, x.indexOf('@')); // extracts username from email
    }
    else if (x === 'signedout' || x === undefined) {
-     this.r.navigate(['home']);
+     this.router.navigate(['home']);
    }
    console.log('app state: ', this.key);
  });
 
     this.title = (this.key === 'admin') ? 'All Feedbacks' : 'My Feedbacks';
 
-            this.item = this.af.database.list('/feedbacks');
+            this.item = this.angularFire.database.list('/feedbacks');
             this.item.subscribe((x) => {
                 for (let i = 0; i < x.length; i++) {
                   this.feedbacks[i] = {
@@ -75,7 +75,7 @@ ngOnInit() {
 
   ShowKey(key) {
     this.replyKey = key;
-    this.item = this.af.database.list('/feedbacks/' + this.replyKey);
+    this.item = this.angularFire.database.list('/feedbacks/' + this.replyKey);
             this.item.subscribe((x) => {
                 for (let i = 0; i < x.length; i++) {
                   this.temp = {
@@ -94,7 +94,7 @@ ngOnInit() {
     if(formValue.msg) {
       formValue.uname = this.key;
       formValue.reply = 'no reply yet';
-      this.af.database.list('/feedbacks')
+      this.angularFire.database.list('/feedbacks')
       .push(formValue)
       // .then(() => console.log('success'))
       // .catch(err => console.log('error: ', err)); // formvalue is pushed into the db
@@ -107,7 +107,7 @@ ngOnInit() {
 
   SendReply(val) {
     this.temp.reply = val.reply;
-    this.af.database.list('/feedbacks') // select node 'feedbacks
+    this.angularFire.database.list('/feedbacks') // select node 'feedbacks
       .update(this.replyKey, {'reply': val.reply}); //update its reply key
     alert('Success, Reply Sent');
   }
