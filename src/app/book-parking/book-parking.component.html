@@ -2,38 +2,20 @@
 <form #bookingsForm="ngForm" (ngSubmit)="BookParkings(bookingsForm.value, bookingsForm)" (change)="validateSlots(bookingsForm.value)">
 
   <label for="date"> Select Booking Date </label>
-  <input id="date"
-        type="date"
-        name="date"
-        #date="ngModel"
-        [(ngModel)]="pickDate"
-        (input)="isPastDate(date.value)">
+  <md-input-container type="date">
+    <input mdInput id="date" type="date" name="date" #date="ngModel" [(ngModel)]="pickDate" (input)="isPastDate(date.value)">
+  </md-input-container>
+
     <br><br>
 
-  <label for="startTime"> Select Start Time </label>
-  <select id="startTime" name="start" #start="ngModel" [(ngModel)]="startTime">
-    <option value="1AM"> 1 AM </option>
-    <option value="2AM"> 2 AM </option>
-    <option value="3AM"> 3 AM </option>
-    <option value="4AM"> 4 AM </option>
-    <option value="5AM"> 5 AM </option>
-    <option value="6AM"> 6 AM </option>
-    <option value="7AM"> 7 AM </option>
-    <option value="8AM"> 8 AM </option>
-    <option value="9AM"> 9 AM </option>
-    <option value="10AM"> 10 AM </option>
-    <option value="11AM"> 11 AM </option>
-    <option value="12AM"> 12 AM </option>
-  </select>
+<md-select placeholder="Select Start Time" name="start" #start="ngModel" [(ngModel)]="startTime">
+   <md-option *ngFor="let sTime of startTimeArr" [value]="sTime">{{ sTime }}</md-option>
+</md-select>
 
-  <label for="duration"> Select Duration </label>
-  <select id="duration" name="duration" #duration="ngModel" [(ngModel)]="timeDuration"> 
-    <option value="1"> 1 hour </option>
-    <option value="2"> 2 hours </option>
-    <option value="3"> 3 hours </option>
-    <option value="4"> 4 hours </option>
-    <option value="5"> 5 hours </option>
-  </select>
+<md-select placeholder="Select Duration" name="duration" #duration="ngModel" [(ngModel)]="timeDuration">
+   <md-option *ngFor="let timeDue of bookingDuration" [value]="timeDue">{{ timeDue }}</md-option>
+</md-select>
+
   <br><br>
 
   <button type="button" md-raised-button color="primary" (click)="validateSlots(bookingsForm.value)">

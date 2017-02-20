@@ -51,6 +51,9 @@ export class BookParkingComponent {
     duration: 0
   }];
 
+startTimeArr: string[] = ['1 AM', '2 AM', '3 AM', '4 AM', '5 AM'];
+bookingDuration: string[] = ['1 hour','2 hours','3 hours','4 hours','5 hours'];
+
   constructor(
     private af: AngularFire,
     private a: MyActions
