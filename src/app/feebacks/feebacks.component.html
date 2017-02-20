@@ -1,13 +1,13 @@
 <h3> {{title}} </h3>
 <div *ngIf="key !== 'admin'">
     <form #feedbackForm="ngForm" (ngSubmit)="SendFeedback(feedbackForm.value)">
-        <md-input class="feedback"
+      <md-input-container dividerColor='primary'>
+        <input mdInput class="feedback"
             name="msg"
             [(ngModel)]="message"
             #msg="ngModel"
-            placeholder='Your Feedback'
-            dividerColor='primary'>
-        </md-input>
+            placeholder='Your Feedback'>
+      </md-input-container>
         <button type='submit' md-mini-fab color='primary'>
           <i class="material-icons">send</i>
         </button>
@@ -16,13 +16,13 @@
 </div>
 <div *ngIf="key === 'admin' && clicked" >
   <form #replyForm="ngForm" (ngSubmit)="SendReply(replyForm.value)">
-        <md-input class="feedback"
+        <md-input-container dividerColor='primary'>
+        <input mdInput class="feedback"
             name="reply"
             [(ngModel)]="response"
             #reply="ngModel"
-            placeholder='Reply'
-            dividerColor='primary'>
-        </md-input>
+            placeholder='Reply'>
+        </md-input-container>
         <button type='submit' md-mini-fab color='primary'>
           <i class="material-icons">send</i>
         </button>
