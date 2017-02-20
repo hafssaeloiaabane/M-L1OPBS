@@ -1,11 +1,9 @@
 <h3> Book Parking Slots </h3>
-<form #bookingsForm="ngForm" (ngSubmit)="BookParkings(bookingsForm.value, bookingsForm)" (formchange)="validateSlots(bookingsForm.value)">
+<form #bookingsForm="ngForm" (ngSubmit)="BookParkings(bookingsForm.value, bookingsForm)">
 
   <md-input-container placeholder="Select Booking Date" type="date">
     <input mdInput placeholder="Select Booking Date" id="date" type="date" name="date" #date="ngModel" [(ngModel)]="pickDate" (input)="isPastDate(date.value)">
   </md-input-container>
-
-    <br><br>
 
 <md-select placeholder="Select Start Time" name="start" #start="ngModel" [(ngModel)]="startTime">
    <md-option *ngFor="let sTime of startTimeArr" [value]="sTime">{{ sTime }}</md-option>
