@@ -7,6 +7,7 @@ import { select } from 'ng2-redux';
 import { MyActions } from '../store/actions';
 import { MdDialog } from '@angular/material';
 import { AlertBoxComponent } from '../alert-box/alert-box.component';
+import { UserDetailsService } from '../services/user-details.service';
 
 @Component({
   selector: 'app-feebacks',
@@ -14,16 +15,16 @@ import { AlertBoxComponent } from '../alert-box/alert-box.component';
   styleUrls: ['feebacks.component.css']
 })
 export class FeebacksComponent implements OnInit {
- 
+
    title: string;
    clicked: boolean = false;
-   
+
    item: FirebaseListObservable<any> ;
    feedback: FirebaseListObservable<any> ;
 
-  @select(['UserReducer', 'type']) // initialUserState.type 
+  @select(['UserReducer', 'type']) // initialUserState.type
   user$: Observable<any>; // gets User State of the app
-  
+
   key;
   replyKey: string;
   temp;
@@ -46,16 +47,20 @@ constructor(
     private angularFire: AngularFire,
     private router: Router,
     private activeRoute: ActivatedRoute,
-    public dialog: MdDialog
+    public dialog: MdDialog,
+    public userDetails: UserDetailsService
   ) {}
 
 ngOnInit() {
  this.user$.subscribe(x => {
-  //  console.log('x',x); 
-   if (x !== 'signedout' && x !== undefined) {
-     this.key = x.slice(0, x.indexOf('@')); // extracts username from email
-   }
-   else if (x === 'signedout' || x === undefined) {
+  //  console.log('x',x);
+  //  if (x !== 'signedout' && x !== undefined) {
+  //    this.key = x.slice(0, x.indexOf('@')); // extracts username from email
+  //  }
+
+   this.key = this.userDetails.user();
+
+   if (x === 'signedout' || x === undefined) {
      this.router.navigate(['home']);
    }
    console.log('app state: ', this.key);
@@ -94,7 +99,7 @@ ngOnInit() {
 
   SendFeedback(formValue) {
     // console.log('inside send form', formValue.msg);
-    if(formValue.msg) {
+    if (formValue.msg) {
       formValue.uname = this.key;
       formValue.reply = 'no reply yet';
       this.angularFire.database.list('/feedbacks')

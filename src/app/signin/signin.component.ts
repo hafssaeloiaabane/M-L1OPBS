@@ -5,6 +5,7 @@ import { MyActions } from './../store/actions';
 import { Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 import { AlertBoxComponent } from '../alert-box/alert-box.component';
+import { AuthService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-signin',
@@ -16,27 +17,30 @@ export class SigninComponent {
   index: number;
 
   constructor(
-      private angularFire: AngularFire,
+      // private angularFire: AngularFire,
       private router: Router,
       private actions: MyActions,
-      public dialog: MdDialog
+      // public dialog: MdDialog,
+      public auth: AuthService
     ) { }
 
   onSignIn(value) {
     // 'signin' action dispatched from redux
     this.actions.signIn(value.eml);
+    this.auth.Login(value);
+    this.router.navigate(['dashboard']);
 
-    this.angularFire.auth.login(
-                {email: value.eml, password: value.pass},
-                {provider: AuthProviders.Password, method: AuthMethods.Password}
-        ).then((res) => {
-                // dialog box used as alert msg
-                let data = "Sign In Successful!";
-                this.dialog.open(AlertBoxComponent, {data});
-                this.router.navigate(['dashboard']);
-        }
-        , (err) => {
-                alert(err);
-        });
+  //   this.angularFire.auth.login(
+  //               {email: value.eml, password: value.pass},
+  //               {provider: AuthProviders.Password, method: AuthMethods.Password}
+  //       ).then((res) => {
+  //               // dialog box used as alert msg
+  //               let data = "Sign In Successful!";
+  //               this.dialog.open(AlertBoxComponent, {data});
+  //               this.router.navigate(['dashboard']);
+  //       }
+  //       , (err) => {
+  //               alert(err);
+  //       });
   }
 }

@@ -20,6 +20,11 @@ import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
 import { FeebacksComponent } from './feebacks/feebacks.component';
 import { AlertBoxComponent } from './alert-box/alert-box.component';
 
+// Services
+import { Talk2DBService } from './services/talk2-db.service';
+import { AuthService } from './services/auth-service.service';
+import { UserDetailsService } from './services/user-details.service';
+
 export const myFirebaseConfig = {
     apiKey: 'AIzaSyDprS0fjxKqaIWjFwYuTNP844rkWxnjt1k',
     authDomain: 'l1opbs-4128f.firebaseapp.com',
@@ -62,7 +67,11 @@ const routes: Routes =[
     RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig)
   ],
-  providers: [],
+  providers: [
+    Talk2DBService,
+    AuthService,
+    UserDetailsService
+  ],
   entryComponents: [AlertBoxComponent],
   bootstrap: [AppComponent]
 })
