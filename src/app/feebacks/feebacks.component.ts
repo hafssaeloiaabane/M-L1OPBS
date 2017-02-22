@@ -53,10 +53,6 @@ constructor(
 
 ngOnInit() {
  this.user$.subscribe(x => {
-  //  console.log('x',x);
-  //  if (x !== 'signedout' && x !== undefined) {
-  //    this.key = x.slice(0, x.indexOf('@')); // extracts username from email
-  //  }
 
    this.key = this.userDetails.user();
 

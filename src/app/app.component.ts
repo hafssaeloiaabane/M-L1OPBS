@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, Routes } from '@angular/router';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { MdDialog } from '@angular/material';
 import { AlertBoxComponent } from './alert-box/alert-box.component';
 import { Observable } from 'rxjs';
 import { select } from 'ng2-redux';
 import { MyActions } from './store/actions';
+import { AuthService } from './services/auth-service.service';
 
 @Component({
   selector: 'app-root',
@@ -22,20 +22,18 @@ export class AppComponent {
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private angularFire: AngularFire,
     private actions: MyActions,
-    public dialog: MdDialog
-  ){
+    public dialog: MdDialog,
+    public auth: AuthService
+  ) {
     this.user$.subscribe(x => {
-        // console.log('app state: ', x);
         this.isSignedOut = (x === 'signedout' || x === undefined) ? true : false;
-        // console.log('isSignedOut: ', this.isSignedOut)
     });
   }
 
-  signOut() {    
+  signOut() {
     this.actions.signOut(); // 'signout' action dispatched from redux
-    this.angularFire.auth.logout(); // angularFire authentication log out
+    this.auth.Logout(); // AuthService Logout
     this.router.navigate(['home']); // navigate back to home page
     // dialog box used as alert msg
     let data = "Please Sign In to continue...";

@@ -13,7 +13,7 @@ export class UserDetailsService {
 
   constructor() { }
 
-usertype(): string {
+  usertype(): string {
     this.user$.subscribe(x => {
           if ( x !== 'signedout' &&  x !== undefined) {
             this.type = (x === 'admin@gmail.com') ? 'isAdmin' : 'isUser'; // type of user
@@ -31,4 +31,12 @@ usertype(): string {
     return this.username;
   }
 
+  firstname(value): string {
+    let firstChar = value.uname.charAt(0); // get 1st char of name
+    let capitalize = firstChar.toUpperCase(); // transformed into upperCase
+    let uname = value.uname.replace(firstChar, capitalize); // replaced first char of name
+    let space = uname.indexOf(' '); // get first name
+    let firstname = uname.slice(0, space); // extract first name with 1st letter capital
+    return firstname;
+  }
 }

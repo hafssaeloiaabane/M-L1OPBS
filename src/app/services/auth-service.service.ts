@@ -19,12 +19,22 @@ export class AuthService {
                 {provider: AuthProviders.Password, method: AuthMethods.Password}
         ).then((res) => {
                 // dialog box used as alert msg
-                let data = "Sign In Successful!";
+                let data = 'Sign In Successful!';
                 this.dialog.open(AlertBoxComponent, {data});
                 // this.router.navigate(['dashboard']);
         }
         , (err) => {
                 alert(err);
         });
+  }
+
+  Logout() {
+        this.angularFire.auth.logout(); // angularFire authentication log out
+  }
+
+  SignUp(value) {
+        this.angularFire.auth.createUser(
+           {email: value.emlid, password: value.pcode}
+        );
   }
 }
