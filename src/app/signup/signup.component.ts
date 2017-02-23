@@ -25,18 +25,15 @@ export class SignupComponent {
   ) {}
 
   SignUp(value) {
-    // 'signup' action dispatched from redux
-    this.actions.signUp(value.emlid);
-
-    this.auth.SignUp(value);
-
-    const firstname = this.userDetails.firstname(value);
+    this.actions.signUp(value.emlid); // 'signup' action dispatched from redux
+    this.auth.SignUp(value); // angularfire authService
+    const firstname = this.userDetails.firstname(value); // gets username by service
 
     // dialog box used as alert msg
     let data = ` Hi ${firstname}, Welcome! `;
     this.dialog.open(AlertBoxComponent, {data});
 
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['dashboard']); // navigate to dashboard component
   }
 
 }
