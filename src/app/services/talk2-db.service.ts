@@ -65,10 +65,10 @@ export class Talk2DBService {
       this.angularFire.database.list('/bookings')
       .subscribe( (x) => {
         // console.log('subscribe');
-        let temp = [];
+        const temp = [];
               for (let i = 0; i < x.length; i++) {
                 // console.log('outerloop: ', x[i])
-                for (let k in x[i]) {
+                for (const k in x[i]) {
                     // console.log('innerloop: ', k);
                     if (k === '$key') {
                       continue;
@@ -120,11 +120,9 @@ export class Talk2DBService {
                   };
               }
             });
-    // console.log(key);
   }
 
   SendFeedback(formValue, name) {
-    // console.log('inside send form', formValue.msg);
     if (formValue.msg) {
       formValue.uname = name;
       formValue.reply = 'no reply yet';
@@ -132,12 +130,12 @@ export class Talk2DBService {
       .push(formValue); // formvalue is pushed into the db
 
         // dialog box used as alert msg
-        let data = "Feedback Submitted!";
+        const data = 'Feedback Submitted!';
         this.dialog.open(AlertBoxComponent, {data});
     }
     else {
         // dialog box used as alert msg
-        let data = "Please Enter Feedback!";
+        const data = 'Please Enter Feedback!';
         this.dialog.open(AlertBoxComponent, {data});
     }
   }
@@ -145,9 +143,9 @@ export class Talk2DBService {
   SendReply(val) {
     this.temp.reply = val.reply;
     this.angularFire.database.list('/feedbacks') // select node 'feedbacks
-      .update(this.replyKey, {'reply': val.reply}); //update its reply key
+      .update(this.replyKey, {'reply': val.reply}); // update its reply key
         // dialog box used as alert msg
-        let data = "Success, Reply Sent!";
+        const data = 'Success, Reply Sent!';
         this.dialog.open(AlertBoxComponent, {data});
   }
 
@@ -169,16 +167,16 @@ export class Talk2DBService {
     return this.bookings;
   }
 
-  viewAdminBookings(): any { console.log('ANNY')
+  viewAdminBookings(): any {
       this.userName = this.angularFire.database.list('/bookings');
       this.userName.subscribe((x) => {
               for (let i = 0; i < x.length; i++) {
-                for (let k in x[i]) {
+                for (const k in x[i]) {
                     if (k === '$key') {
                       continue;
                     }
                     if (typeof x[i][k] !== 'function') {
-                        this.bookings.push({ 
+                        this.bookings.push({
                           id: x[i][k].slotId,
                           user: x[i].$key,
                           date: x[i][k].date,
@@ -192,5 +190,10 @@ export class Talk2DBService {
               }
       });
       return this.bookings;
+  }
+
+  deleteBooking(currentObject) {
+    this.item = this.angularFire.database.list('/bookings/' + currentObject.user); // user
+    this.item.subscribe( x => this.item.remove(currentObject.key)); // node specified by the key is deleted from the db
   }
 }

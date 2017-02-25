@@ -37,11 +37,11 @@ export class UserDetailsService {
   }
 
   firstname(value): string {
-    let firstChar = value.uname.charAt(0); // get 1st char of name
-    let capitalize = firstChar.toUpperCase(); // transformed into upperCase
-    let uname = value.uname.replace(firstChar, capitalize); // replaced first char of name
-    let space = uname.indexOf(' '); // get first name
-    let firstname = uname.slice(0, space); // extract first name with 1st letter capital
+    const firstChar = value.uname.charAt(0); // get 1st char of name
+    const capitalize = firstChar.toUpperCase(); // transformed into upperCase
+    const uname = value.uname.replace(firstChar, capitalize); // replaced first char of name
+    const space = uname.indexOf(' '); // get first name
+    const firstname = uname.slice(0, space); // extract first name with 1st letter capital
     return firstname;
   }
 }
