@@ -35,6 +35,7 @@ export class AppComponent {
     this.actions.signOut(); // 'signout' action dispatched from redux
     this.auth.Logout(); // AuthService Logout
     this.router.navigate(['home']); // navigate back to home page
+    
     // dialog box used as alert msg
     let data = "Please Sign In to continue...";
     this.dialog.open(AlertBoxComponent, {data});

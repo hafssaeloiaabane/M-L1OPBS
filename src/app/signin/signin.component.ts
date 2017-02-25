@@ -21,9 +21,8 @@ export class SigninComponent {
     ) { }
 
   onSignIn(value) {
-    // 'signin' action dispatched from redux
-    this.actions.signIn(value.eml);
-    this.auth.Login(value);
-    this.router.navigate(['dashboard']);
+    this.actions.signIn(value.eml); // 'signin' action dispatched from redux
+    this.auth.Login(value); // angularfire authService
+    this.router.navigate(['dashboard']); // navigate to dashboard component
   }
 }
