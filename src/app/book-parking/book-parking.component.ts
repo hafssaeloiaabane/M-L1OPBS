@@ -5,6 +5,7 @@ import { select } from 'ng2-redux';
 import { MdDialog } from '@angular/material';
 import { AlertBoxComponent } from '../alert-box/alert-box.component';
 import { Talk2DBService } from '../services/talk2-db.service';
+import { UserDetailsService } from '../services/user-details.service';
 
 @Component({
   selector: 'app-book-parking',
@@ -59,7 +60,8 @@ bookingDuration: string[] = ['1 hour', '2 hours', '3 hours', '4 hours', '5 hours
   constructor(
     private angularFire: AngularFire,
     public dialog: MdDialog,
-    public getBookings: Talk2DBService
+    public getBookings: Talk2DBService,
+    public user: UserDetailsService
     ) {
 
     //   this.currentDate = new Date().toISOString().slice(0, 10); // 2017-01-30
@@ -170,7 +172,7 @@ bookingDuration: string[] = ['1 hour', '2 hours', '3 hours', '4 hours', '5 hours
       else {
         formVal.slotId = this.bookedSlotId; // inserts slotid to object
         this.slots[this.bookedSlotId].isBooked = true;
-        this.angularFire.database.list('/bookings/' + this.getBookings.username) // creates a new node for each user
+        this.angularFire.database.list('/bookings/' + this.user.username) // creates a new node for each user
         .push(formVal); // pushes formVal on new node each time
 
         // dialog box used as alert msg

@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   constructor(public userDetails: UserDetailsService) {}
 
   ngOnInit() {
-    this.type = this.userDetails.usertype();
+    this.type = this.userDetails.userType();
 
     // this.user$.subscribe(x => {
     //   if (x !== 'signedout' && x !== undefined) {

@@ -7,27 +7,32 @@ export class UserDetailsService {
 
   username: string;
   type: string;
+  go2home: boolean;
+  x;
 
   @select(['UserReducer', 'type'])
   user$: Observable<any>; // gets User State of the app
+  subscription = this.user$.subscribe(x => this.x = x);
 
   constructor() { }
+  navigateToHome(): boolean {
+    if (this.x === 'signedout' || this.x === undefined) {
+      this.go2home = true;
+    }
+    return this.go2home;
+  }
 
-  usertype(): string {
-    this.user$.subscribe(x => {
-          if ( x !== 'signedout' &&  x !== undefined) {
-            this.type = (x === 'admin@gmail.com') ? 'isAdmin' : 'isUser'; // type of user
-          }
-    });
+  userType(): string {
+    if ( this.x !== 'signedout' &&  this.x !== undefined) {
+      this.type = (this.x === 'admin@gmail.com') ? 'isAdmin' : 'isUser'; // type of user
+    }
     return this.type; // , this.username;
   }
 
   user(): string {
-    this.user$.subscribe(x => {
-          if ( x !== 'signedout' &&  x !== undefined) {
-            this.username = x.slice(0, x.indexOf('@')); // extracts username from email
-          }
-    });
+    if ( this.x !== 'signedout' &&  this.x !== undefined) {
+      this.username = this.x.slice(0, this.x.indexOf('@')); // extracts username from email
+     }
     return this.username;
   }
 
